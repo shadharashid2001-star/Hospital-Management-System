@@ -76,4 +76,33 @@ public class Nurse extends Person {
         System.out.println("Assigned Patients: " + assignedPatientIds);
         System.out.println("Years of Service: " + yearsOfService);
     }
+    public void assignPatient(String patientId) {
+
+        if (patientId == null || patientId.trim().isEmpty()) {
+            System.out.println("Patient ID cannot be empty.");
+            return;
+        }
+
+        if (assignedPatientIds.contains(patientId)) {
+            System.out.println("Patient already assigned.");
+            return;
+        }
+
+        assignedPatientIds.add(patientId);
+    }
+    public void unassignPatient(String patientId) {
+
+        if (assignedPatientIds.remove(patientId)) {
+            System.out.println("Patient unassigned.");
+        } else {
+            System.out.println("Patient not found.");
+        }
+
+    }
+    public Integer getPatientLoad() {
+        return assignedPatientIds.size();
+    }
+    public boolean isNightShift() {
+        return shift != null && shift.equalsIgnoreCase("Night");
+    }
 }
