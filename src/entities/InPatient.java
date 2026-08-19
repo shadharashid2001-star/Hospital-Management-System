@@ -32,6 +32,8 @@ public class InPatient extends Patient {
                 address,
                 nationalId,
                 age, active, bloodGroup, emergencyContact, registrationDate, outstandingBalance, insured);
+
+        setAdmissionDate(admissionDate)
         setAdmissionDate(admissionDate);
         setDailyCharges(dailyCharges);
         setDaysAdmitted(daysAdmitted);
@@ -69,4 +71,5 @@ public class InPatient extends Patient {
     public void setDaysAdmitted(Integer daysAdmitted) {
         this.daysAdmitted = daysAdmitted;
     }
+
 }

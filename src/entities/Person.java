@@ -14,6 +14,7 @@ public class Person implements Displayable {
     private String nationalId;
     private Integer age;
     private boolean active;
+    private double outstandingBalance;
  public Person(
          String id ,
          String firstName,
@@ -193,6 +194,14 @@ public Person(
         return id != null && id.equals(other.id);
     }
 
+    public void setOutstandingBalance(double outstandingBalance) {
 
+        if (outstandingBalance < 0) {
+            System.out.println("Outstanding balance cannot be negative.");
+            return;
+        }
+
+        this.outstandingBalance= outstandingBalance;
+    }
 
 }
