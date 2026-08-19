@@ -116,4 +116,46 @@ public class Doctor extends Person{
         System.out.println("consultationFee"+consultationFee);
         System.out.println(" available time-slots"+availableslots);
     }
+    public void addSlot(String slot){
+        if(slot==null || slot.trim().isEmpty()){
+            System.out.println("cannot be empty");
+            return;
+        }
+        if (slot >= availableslots.length()){
+            System.out.println("no slot space");
+            return;
+        }
+        availableslots[slotcount]=slot;
+        slotcount++;
+    }
+public boolean hasSlot(String slot){
+    for (int i = 0; i < slotcount; i++) {
+        if (availableslots[i].eqalsIgnoreCase(slot)){
+            return true;
+        }
+
+    }
+    return false;
+}
+    public void removeSlot(String slot) {
+
+        for (int i = 0; i < slotcount; i++) {
+
+            if (availableslots[i].equalsIgnoreCase(slot)) {
+
+                for (int j = i; j <  slotcount- 1; j++) {
+
+                    availableslots[j] =
+                            availableslots[j + 1];
+                }
+
+                availableslots[slotcount - 1] = null;
+
+                slotcount--;
+
+                return;
+            }
+        }
+        System.out.println("Slot not found.");
+    }
 }
