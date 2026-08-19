@@ -1,18 +1,19 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Patient extends Person {
+
     private String bloodGroup;
     private String emergencyContact;
     private String registrationDate;
 
-    private String[] allergies = new String[50];
-    private int allergyCount;
-
-    private String[] recordIds = new String[100];
-    private int recordCount;
+    private ArrayList<String> allergies = new ArrayList<>();
+    private ArrayList<String> recordIds = new ArrayList<>();
 
     private double outstandingBalance;
     private boolean insured;
+
 
     public Patient(
             String id,
@@ -24,7 +25,7 @@ public class Patient extends Person {
             String email,
             String address,
             String nationalId,
-            int age,
+            Integer age,
             boolean active,
             String bloodGroup,
             String emergencyContact,
@@ -41,13 +42,17 @@ public class Patient extends Person {
                 phone,
                 email,
                 address,
-                nationalId, age,
-                active);
-        this.bloodGroup = bloodGroup;
-        this.emergencyContact = emergencyContact;
+                age,
+                active
+        );
+
         setBloodGroup(bloodGroup);
         setEmergencyContact(emergencyContact);
+        setRegistrationDate(registrationDate);
+        setOutstandingBalance(outstandingBalance);
+        setInsured(insured);
     }
+
 
     public String getBloodGroup() {
         return bloodGroup;
@@ -57,6 +62,7 @@ public class Patient extends Person {
         this.bloodGroup = bloodGroup;
     }
 
+
     public String getEmergencyContact() {
         return emergencyContact;
     }
@@ -64,6 +70,7 @@ public class Patient extends Person {
     public void setEmergencyContact(String emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
+
 
     public String getRegistrationDate() {
         return registrationDate;
@@ -73,45 +80,39 @@ public class Patient extends Person {
         this.registrationDate = registrationDate;
     }
 
-    public String[] getAllergies() {
+
+    public ArrayList<String> getAllergies() {
         return allergies;
     }
 
-    public void setAllergies(String[] allergies) {
+    public void setAllergies(ArrayList<String> allergies) {
         this.allergies = allergies;
     }
 
-    public int getAllergyCount() {
-        return allergyCount;
-    }
 
-    public void setAllergyCount(int allergyCount) {
-        this.allergyCount = allergyCount;
-    }
-
-    public String[] getRecordIds() {
+    public ArrayList<String> getRecordIds() {
         return recordIds;
     }
 
-    public void setRecordIds(String[] recordIds) {
+    public void setRecordIds(ArrayList<String> recordIds) {
         this.recordIds = recordIds;
     }
 
-    public int getRecordCount() {
-        return recordCount;
-    }
-
-    public void setRecordCount(int recordCount) {
-        this.recordCount = recordCount;
-    }
 
     public double getOutstandingBalance() {
         return outstandingBalance;
     }
 
     public void setOutstandingBalance(double outstandingBalance) {
+
+        if (outstandingBalance < 0) {
+            System.out.println("Balance cannot be negative.");
+            return;
+        }
+
         this.outstandingBalance = outstandingBalance;
     }
+
 
     public boolean isInsured() {
         return insured;
@@ -121,24 +122,87 @@ public class Patient extends Person {
         this.insured = insured;
     }
 
+
+    public void addAllergy(String allergy) {
+
+        if (allergy == null || allergy.trim().isEmpty()) {
+            System.out.println("Allergy cannot be empty.");
+            return;
+        }
+
+        allergies.add(allergy);
+    }
+
+
+    public boolean hasAllergy(String allergy) {
+
+        for (String item : allergies) {
+
+            if (item.equalsIgnoreCase(allergy)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public void listAllergies() {
+
+        if (allergies.isEmpty()) {
+            System.out.println("No allergies.");
+            return;
+        }
+
+        for (String allergy : allergies) {
+            System.out.println(allergy);
+        }
+    }
+
+
+    public void addRecordId(String recordId) {
+
+        if (recordId == null || recordId.trim().isEmpty()) {
+            System.out.println("Record ID cannot be empty.");
+            return;
+        }
+
+        recordIds.add(recordId);
+    }
+
+
+    public Integer getRecordCount() {
+        return recordIds.size();
+    }
+
+
+    public void addToBalance(double amount) {
+
+        if (amount < 0) {
+            System.out.println("Amount cannot be negative.");
+            return;
+        }
+
+        outstandingBalance += amount;
+    }
+
+
+    public void clearBalance() {
+        outstandingBalance = 0;
+    }
+
+
     @Override
     public void displayInfo() {
+
         super.displayInfo();
-        System.out.println(
-                "Blood Group: " + bloodGroup);
 
-        System.out.println(
-                "Emergency Contact: " + emergencyContact);
-
-        System.out.println(
-                "Registration Date: " + registrationDate);
-
+        System.out.println("Blood Group: " + bloodGroup);
+        System.out.println("Emergency Contact: " + emergencyContact);
+        System.out.println("Registration Date: " + registrationDate);
+        System.out.println("Allergies: " + allergies);
+        System.out.println("Record Count: " + recordIds.size());
         System.out.println("Outstanding Balance: " + outstandingBalance);
-
-        System.out.println(
-                "Insured: " + insured);
+        System.out.println("Insured: " + insured);
     }
-
-
-    }
-
+}

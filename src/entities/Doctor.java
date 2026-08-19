@@ -1,16 +1,15 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Doctor extends Person {
 
     private String specialization;
-    private int experienceYears;
+    private Integer experienceYears;
     private double consultationFee;
 
-    private String[] availableSlots = new String[100];
-    private int slotCount = 0;
-
-    private String[] assignedPatientIds = new String[50];
-    private int patientCount = 0;
+    private ArrayList<String> availableSlots = new ArrayList<>();
+    private ArrayList<String> assignedPatientIds = new ArrayList<>();
 
     private boolean onCall;
 
@@ -25,10 +24,10 @@ public class Doctor extends Person {
             String email,
             String address,
             String nationalId,
-            int age,
+            Integer age,
             boolean active,
             String specialization,
-            int experienceYears,
+            Integer experienceYears,
             double consultationFee,
             boolean onCall) {
 
@@ -41,7 +40,6 @@ public class Doctor extends Person {
                 phoneNumber,
                 email,
                 address,
-                nationalId,
                 age,
                 active
         );
@@ -117,8 +115,8 @@ public class Doctor extends Person {
         System.out.println("Specialization: " + specialization);
         System.out.println("Experience Years: " + experienceYears);
         System.out.println("Consultation Fee: " + consultationFee);
-        System.out.println("Available Slots: " + slotCount);
-        System.out.println("Assigned Patients: " + patientCount);
+        System.out.println("Available Slots: " + availableSlots);
+        System.out.println("Assigned Patients: " + assignedPatientIds.size());
         System.out.println("On Call: " + onCall);
     }
 
@@ -130,21 +128,15 @@ public class Doctor extends Person {
             return;
         }
 
-        if (slotCount >= availableSlots.length) {
-            System.out.println("No space for more slots.");
-            return;
-        }
-
-        availableSlots[slotCount] = slot;
-        slotCount++;
+        availableSlots.add(slot);
     }
 
 
     public boolean hasSlot(String slot) {
 
-        for (int i = 0; i < slotCount; i++) {
+        for (String availableSlot : availableSlots) {
 
-            if (availableSlots[i].equalsIgnoreCase(slot)) {
+            if (availableSlot.equalsIgnoreCase(slot)) {
                 return true;
             }
         }
@@ -155,16 +147,11 @@ public class Doctor extends Person {
 
     public void removeSlot(String slot) {
 
-        for (int i = 0; i < slotCount; i++) {
+        for (int i = 0; i < availableSlots.size(); i++) {
 
-            if (availableSlots[i].equalsIgnoreCase(slot)) {
+            if (availableSlots.get(i).equalsIgnoreCase(slot)) {
 
-                for (int j = i; j < slotCount - 1; j++) {
-                    availableSlots[j] = availableSlots[j + 1];
-                }
-
-                availableSlots[slotCount - 1] = null;
-                slotCount--;
+                availableSlots.remove(i);
 
                 return;
             }
@@ -181,18 +168,13 @@ public class Doctor extends Person {
             return;
         }
 
-        if (patientCount >= assignedPatientIds.length) {
-            System.out.println("Cannot assign more patients.");
-            return;
-        }
-
-        assignedPatientIds[patientCount] = patientId;
-        patientCount++;
+        assignedPatientIds.add(patientId);
     }
 
 
     public int getPatientLoad() {
-        return patientCount;
+
+        return assignedPatientIds.size();
     }
 
 
