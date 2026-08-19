@@ -1,6 +1,11 @@
 package entities;
 
 public class InPatient extends Patient {
+  private String admissionDate;
+  private Integer  roomNumber;
+  private double dailyCharges;
+  private Integer daysAdmitted;
+
 
     public InPatient(String id,
                      String firstName,
@@ -27,5 +32,41 @@ public class InPatient extends Patient {
                 address,
                 nationalId,
                 age, active, bloodGroup, emergencyContact, registrationDate, outstandingBalance, insured);
+        setAdmissionDate(admissionDate);
+        setDailyCharges(dailyCharges);
+        setDaysAdmitted(daysAdmitted);
+    }
+
+
+    public String getAdmissionDate() {
+        return admissionDate;
+    }
+
+    public void setAdmissionDate(String admissionDate) {
+        this.admissionDate = admissionDate;
+    }
+
+    public Integer getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(Integer roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public double getDailyCharges() {
+        return dailyCharges;
+    }
+
+    public void setDailyCharges(double dailyCharges) {
+        this.dailyCharges = dailyCharges;
+    }
+
+    public Integer getDaysAdmitted() {
+        return daysAdmitted;
+    }
+
+    public void setDaysAdmitted(Integer daysAdmitted) {
+        this.daysAdmitted = daysAdmitted;
     }
 }
