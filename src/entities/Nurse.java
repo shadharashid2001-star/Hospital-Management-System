@@ -6,7 +6,7 @@ public class Nurse extends Person {
  private String departmentId;
  private  String  shift;
  private ArrayList<String> assignedPatientIds= new ArrayList<>();
- private Integer yearsOfService
+ private Integer yearsOfService;
 
 
     public Nurse(String id,
