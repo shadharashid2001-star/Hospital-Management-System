@@ -41,11 +41,12 @@ public class Patient extends Person {
                 phone,
                 email,
                 address,
-                nationalId,
                 age,
                 active);
         this.bloodGroup = bloodGroup;
         this.emergencyContact = emergencyContact;
+        setBloodGroup(bloodGroup);
+        setEmergencyContact(emergencyContact);
     }
 
     public String getBloodGroup() {
@@ -127,19 +128,17 @@ public class Patient extends Person {
                 "Blood Group: " + bloodGroup);
 
         System.out.println(
-                "Emergency Contact: "
-                        + emergencyContact);
+                "Emergency Contact: " + emergencyContact);
 
         System.out.println(
-                "Registration Date: "
-                        + registrationDate);
+                "Registration Date: " + registrationDate);
 
-        System.out.println(
-                "Outstanding Balance: "
-                        + outstandingBalance);
+        System.out.println("Outstanding Balance: " + outstandingBalance);
 
         System.out.println(
                 "Insured: " + insured);
     }
+
+
     }
-}
+

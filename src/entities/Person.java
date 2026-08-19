@@ -23,7 +23,7 @@ public class Person implements Displayable {
          String email,
          String  address,
          String nationalId,
-         String s, Integer age,
+         Integer age,
          boolean active
  ){
      setFirstName(firstName);
@@ -153,7 +153,8 @@ public Person(
 
     @Override
     public String displaySummary() {
-        System.out.println("id"+"--"getFullName());
+        System.out.println("id "+getFullName());
+        return "";
     }
 
     public String getFullName(){
@@ -191,5 +192,7 @@ public Person(
 
         return id != null && id.equals(other.id);
     }
+
+
 
 }
