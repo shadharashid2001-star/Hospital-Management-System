@@ -114,5 +114,17 @@ public class MedicalRecord {
     public void setConfidential(boolean confidential) {
         isConfidential = confidential;
     }
-    
+
+    public String displayInfo() {
+        return "MedicalRecord{" +
+                "recordId='" + recordId + '\'' +
+                ", patientId='" + patientId + '\'' +
+                ", doctorId='" + doctorId + '\'' +
+                ", visitDate='" + visitDate + '\'' +
+                ", diagnosis='" + diagnosis + '\'' +
+                ", prescription='" + prescription + '\'' +
+                ", notes='" + notes + '\'' +
+                ", isConfidential=" + isConfidential +
+                '}';
+    }
 }
