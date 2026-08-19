@@ -61,6 +61,9 @@ public Person(
     }
 
     public void setFirstName(String firstName) {
+     if (firstName== null || firstName.trim().isEmpty()){
+         System.out.println("firstname cannot be ");
+     }
         this.firstName = firstName;
     }
 
@@ -69,6 +72,9 @@ public Person(
     }
 
     public void setLastName(String lastName) {
+        if (lastName== null ||lastName.trim().isEmpty()){
+            System.out.println("lastname cannot be ");
+        }
         this.lastName = lastName;
     }
 
@@ -117,6 +123,9 @@ public Person(
     }
 
     public void setNationalId(String nationalId) {
+        if (nationalId== null || nationalId.trim().isEmpty()){
+            System.out.println("nationalId cannot be ");
+        }
         this.nationalId = nationalId;
     }
 

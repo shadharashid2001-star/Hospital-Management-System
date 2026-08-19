@@ -95,6 +95,9 @@ public class Patient extends Person {
     }
 
     public void setRecordIds(ArrayList<String> recordIds) {
+        if (recordIds==null || recordIds.isEmpty()){
+            System.out.println("recorded must not empty");
+        }
         this.recordIds = recordIds;
     }
 

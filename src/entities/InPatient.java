@@ -33,7 +33,7 @@ public class InPatient extends Patient {
                 nationalId,
                 age, active, bloodGroup, emergencyContact, registrationDate, outstandingBalance, insured);
 
-        setAdmissionDate(admissionDate)
+        setAdmissionDate(admissionDate);
         setAdmissionDate(admissionDate);
         setDailyCharges(dailyCharges);
         setDaysAdmitted(daysAdmitted);
