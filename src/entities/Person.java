@@ -125,6 +125,9 @@ public Person(
     }
 
     public void setAge(Integer age) {
+     if (age<0 ||age <= 120){
+         System.out.println("age must be more than 0");
+     }
         this.age = age;
     }
 
