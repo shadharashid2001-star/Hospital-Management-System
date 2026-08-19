@@ -94,4 +94,32 @@ public class Appointment {
     public void setFollowUp(boolean followUp) {
         isFollowUp = followUp;
     }
+
+    @Override
+    public String displayInfo() {
+        return "Appointment{" +
+                "appointmentId='" + appointmentId + '\'' +
+                ", patientId='" + patientId + '\'' +
+                ", doctorId='" + doctorId + '\'' +
+                ", appointmentDate='" + appointmentDate + '\'' +
+                ", appointmentTime='" + appointmentTime + '\'' +
+                ", status='" + status + '\'' +
+                ", reason='" + reason + '\'' +
+                ", isFollowUp=" + isFollowUp +
+                '}';
+    }
+    public void cancel() {
+        setStatus("Cancelled");
+    }
+
+    public void complete() {
+        setStatus("Completed");
+    }
+
+    public void reschedule(String newDate, String newTime) {
+
+        setAppointmentDate(newDate);
+        setAppointmentTime(newTime);
+        setStatus("Rescheduled");
+    }
 }
