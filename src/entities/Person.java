@@ -23,7 +23,7 @@ public class Person implements Displayable {
          String email,
          String  address,
          String nationalId,
-         Integer age,
+         String s, Integer age,
          boolean active
  ){
      setFirstName(firstName);

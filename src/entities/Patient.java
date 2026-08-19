@@ -41,7 +41,7 @@ public class Patient extends Person {
                 phone,
                 email,
                 address,
-                age,
+                nationalId, age,
                 active);
         this.bloodGroup = bloodGroup;
         this.emergencyContact = emergencyContact;

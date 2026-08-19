@@ -1,34 +1,41 @@
 package entities;
 
-import java.util.Arrays;
+public class Doctor extends Person {
 
-public class Doctor extends Person{
-   private String specialization;
-   private Integer experienceYears;
-   private double consultationFee;
-   private  String availableslots= new String[100];
-   private Integer slotcount;
-    private Integer patientCount;
+    private String specialization;
+    private int experienceYears;
+    private double consultationFee;
+
+    private String[] availableSlots = new String[100];
+    private int slotCount = 0;
+
+    private String[] assignedPatientIds = new String[50];
+    private int patientCount = 0;
+
     private boolean onCall;
 
 
-    public Doctor(String id,
-                  String firstName,
-                  String dateOfBirth,
-                  String gender,
-                  String phoneNumber,
-                  String email,
-                  String address,
-                  String nationalId,
-                  Integer age,
-                  boolean active
-                  String specialization,
-                  int experienceYears,
-                  double consultationFee,
-                  boolean onCall)
-    {
-        super(id,
+    public Doctor(
+            String id,
+            String firstName,
+            String lastName,
+            String dateOfBirth,
+            String gender,
+            String phoneNumber,
+            String email,
+            String address,
+            String nationalId,
+            int age,
+            boolean active,
+            String specialization,
+            int experienceYears,
+            double consultationFee,
+            boolean onCall) {
+
+        super(
+                id,
                 firstName,
+                lastName,
                 dateOfBirth,
                 gender,
                 phoneNumber,
@@ -36,31 +43,44 @@ public class Doctor extends Person{
                 address,
                 nationalId,
                 age,
-                active);
+                active
+        );
 
-        this.specialization  =  specialization;
-        this.experienceYears = experienceYears;
         setSpecialization(specialization);
         setExperienceYears(experienceYears);
         setConsultationFee(consultationFee);
+        setOnCall(onCall);
     }
+
 
     public String getSpecialization() {
         return specialization;
     }
 
     public void setSpecialization(String specialization) {
+
+        if (specialization == null
+                || specialization.trim().isEmpty()) {
+
+            System.out.println("Specialization cannot be empty.");
+            return;
+        }
+
         this.specialization = specialization;
     }
 
-    public Integer getExperienceYears() {
+
+    public int getExperienceYears() {
         return experienceYears;
     }
 
-    public void setExperienceYears(Integer experienceYears) {
-        if (experienceYears<0 ){
-            System.out.println("cannot be negative");
+    public void setExperienceYears(int experienceYears) {
+
+        if (experienceYears < 0) {
+            System.out.println("Experience years cannot be negative.");
+            return;
         }
+
         this.experienceYears = experienceYears;
     }
 
@@ -70,35 +90,15 @@ public class Doctor extends Person{
     }
 
     public void setConsultationFee(double consultationFee) {
-        if (consultationFee<0){
-            System.out.println(" must be +");
+
+        if (consultationFee < 0) {
+            System.out.println("Consultation fee cannot be negative.");
+            return;
         }
+
         this.consultationFee = consultationFee;
     }
 
-    public String getAvailableslots() {
-        return availableslots;
-    }
-
-    public void setAvailableslots(String availableslots) {
-        this.availableslots = availableslots;
-    }
-
-    public Integer getSlotcount() {
-        return slotcount;
-    }
-
-    public void setSlotcount(Integer slotcount) {
-        this.slotcount = slotcount;
-    }
-
-    public Integer getPatientCount() {
-        return patientCount;
-    }
-
-    public void setPatientCount(Integer patientCount) {
-        this.patientCount = patientCount;
-    }
 
     public boolean isOnCall() {
         return onCall;
@@ -108,54 +108,101 @@ public class Doctor extends Person{
         this.onCall = onCall;
     }
 
+
     @Override
     public void displayInfo() {
+
         super.displayInfo();
-        System.out.println("specialization:"+specialization);
-        System.out.println("experienceYears"+experienceYears);
-        System.out.println("consultationFee"+consultationFee);
-        System.out.println(" available time-slots"+availableslots);
+
+        System.out.println("Specialization: " + specialization);
+        System.out.println("Experience Years: " + experienceYears);
+        System.out.println("Consultation Fee: " + consultationFee);
+        System.out.println("Available Slots: " + slotCount);
+        System.out.println("Assigned Patients: " + patientCount);
+        System.out.println("On Call: " + onCall);
     }
-    public void addSlot(String slot){
-        if(slot==null || slot.trim().isEmpty()){
-            System.out.println("cannot be empty");
+
+
+    public void addSlot(String slot) {
+
+        if (slot == null || slot.trim().isEmpty()) {
+            System.out.println("Slot cannot be empty.");
             return;
-        }
-        if (slot >= availableslots.length()){
-            System.out.println("no slot space");
-            return;
-        }
-        availableslots[slotcount]=slot;
-        slotcount++;
-    }
-public boolean hasSlot(String slot){
-    for (int i = 0; i < slotcount; i++) {
-        if (availableslots[i].eqalsIgnoreCase(slot)){
-            return true;
         }
 
+        if (slotCount >= availableSlots.length) {
+            System.out.println("No space for more slots.");
+            return;
+        }
+
+        availableSlots[slotCount] = slot;
+        slotCount++;
     }
-    return false;
-}
+
+
+    public boolean hasSlot(String slot) {
+
+        for (int i = 0; i < slotCount; i++) {
+
+            if (availableSlots[i].equalsIgnoreCase(slot)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     public void removeSlot(String slot) {
 
-        for (int i = 0; i < slotcount; i++) {
+        for (int i = 0; i < slotCount; i++) {
 
-            if (availableslots[i].equalsIgnoreCase(slot)) {
+            if (availableSlots[i].equalsIgnoreCase(slot)) {
 
-                for (int j = i; j <  slotcount- 1; j++) {
-
-                    availableslots[j] =
-                            availableslots[j + 1];
+                for (int j = i; j < slotCount - 1; j++) {
+                    availableSlots[j] = availableSlots[j + 1];
                 }
 
-                availableslots[slotcount - 1] = null;
-
-                slotcount--;
+                availableSlots[slotCount - 1] = null;
+                slotCount--;
 
                 return;
             }
         }
+
         System.out.println("Slot not found.");
+    }
+
+
+    public void assignPatient(String patientId) {
+
+        if (patientId == null || patientId.trim().isEmpty()) {
+            System.out.println("Patient ID cannot be empty.");
+            return;
+        }
+
+        if (patientCount >= assignedPatientIds.length) {
+            System.out.println("Cannot assign more patients.");
+            return;
+        }
+
+        assignedPatientIds[patientCount] = patientId;
+        patientCount++;
+    }
+
+
+    public int getPatientLoad() {
+        return patientCount;
+    }
+
+
+    public void raiseFee(double amount) {
+
+        if (amount <= 0) {
+            System.out.println("Fee increase must be greater than zero.");
+            return;
+        }
+
+        consultationFee += amount;
     }
 }
