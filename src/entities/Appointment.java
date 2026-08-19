@@ -120,6 +120,6 @@ public class Appointment {
 
         setAppointmentDate(newDate);
         setAppointmentTime(newTime);
-        setStatus("Rescheduled");
+        setStatus("Rescheduled:");
     }
 }
