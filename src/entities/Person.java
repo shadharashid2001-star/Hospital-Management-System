@@ -15,16 +15,16 @@ public class Person implements Displayable {
     private Integer age;
     private boolean active;
  public Person(
-          String id ,
-          String firstName,
-     String dateOfBirth,
-     String gender,
-     String phoneNumber,
-     String email,
-     String  address,
-          String nationalId,
-     Integer age,
-     boolean active
+         String id ,
+         String firstName,
+         String dateOfBirth,
+         String gender,
+         String phoneNumber,
+         String email,
+         String  address,
+         String nationalId,
+         String s, Integer age,
+         boolean active
  ){
      setFirstName(firstName);
      setLastName(lastName);
@@ -176,4 +176,20 @@ public Person(
                 ", active=" + active +
                 '}';
     }
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Person)) {
+            return false;
+        }
+
+        Person other = (Person) obj;
+
+        return id != null && id.equals(other.id);
+    }
+
 }
