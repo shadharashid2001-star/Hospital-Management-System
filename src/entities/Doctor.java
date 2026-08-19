@@ -114,6 +114,6 @@ public class Doctor extends Person{
         System.out.println("specialization:"+specialization);
         System.out.println("experienceYears"+experienceYears);
         System.out.println("consultationFee"+consultationFee);
-        System.out.println(" available time-slots:"+availableslots);
+        System.out.println(" available time-slots"+availableslots);
     }
 }
