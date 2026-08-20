@@ -206,6 +206,6 @@ public class Patient extends Person {
         System.out.println("Allergies: " + allergies);
         System.out.println("Record Count: " + recordIds.size());
         System.out.println("Outstanding Balance: " + outstandingBalance);
-        System.out.println("Insured: " + insured);
+        System.out.println("Insured:; " + insured);
     }
 }
