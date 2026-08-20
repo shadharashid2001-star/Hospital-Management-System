@@ -165,7 +165,7 @@ public Person(
     }
 
     @Override
-    public String displaySummary() {
+    public void displaySummary() {
         System.out.println("id "+getFullName());
         return "";
     }

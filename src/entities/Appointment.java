@@ -14,7 +14,7 @@ public class Appointment implements Displayable {
     private boolean isFollowUp;
 
 
-    public Appointment (
+    public Appointment(
             String appointmentId,
             String patientId,
             String doctorId,
@@ -40,6 +40,12 @@ public class Appointment implements Displayable {
     }
 
     public void setAppointmentId(String appointmentId) {
+
+        if (appointmentId == null || appointmentId.trim().isEmpty()) {
+            System.out.println("Appointment ID cannot be empty.");
+            return;
+        }
+
         this.appointmentId = appointmentId;
     }
 
@@ -49,6 +55,12 @@ public class Appointment implements Displayable {
     }
 
     public void setPatientId(String patientId) {
+
+        if (patientId == null || patientId.trim().isEmpty()) {
+            System.out.println("Patient ID cannot be empty.");
+            return;
+        }
+
         this.patientId = patientId;
     }
 
@@ -58,6 +70,12 @@ public class Appointment implements Displayable {
     }
 
     public void setDoctorId(String doctorId) {
+
+        if (doctorId == null || doctorId.trim().isEmpty()) {
+            System.out.println("Doctor ID cannot be empty.");
+            return;
+        }
+
         this.doctorId = doctorId;
     }
 
@@ -67,6 +85,12 @@ public class Appointment implements Displayable {
     }
 
     public void setAppointmentDate(String appointmentDate) {
+
+        if (appointmentDate == null || appointmentDate.trim().isEmpty()) {
+            System.out.println("Appointment date cannot be empty.");
+            return;
+        }
+
         this.appointmentDate = appointmentDate;
     }
 
@@ -76,6 +100,12 @@ public class Appointment implements Displayable {
     }
 
     public void setAppointmentTime(String appointmentTime) {
+
+        if (appointmentTime == null || appointmentTime.trim().isEmpty()) {
+            System.out.println("Appointment time cannot be empty.");
+            return;
+        }
+
         this.appointmentTime = appointmentTime;
     }
 
@@ -85,6 +115,21 @@ public class Appointment implements Displayable {
     }
 
     public void setStatus(String status) {
+
+        if (status == null || status.trim().isEmpty()) {
+            System.out.println("Status cannot be empty.");
+            return;
+        }
+
+        if (!status.equalsIgnoreCase("Scheduled")
+                && !status.equalsIgnoreCase("Cancelled")
+                && !status.equalsIgnoreCase("Completed")
+                && !status.equalsIgnoreCase("Rescheduled")) {
+
+            System.out.println("Invalid appointment status.");
+            return;
+        }
+
         this.status = status;
     }
 
@@ -107,6 +152,7 @@ public class Appointment implements Displayable {
     }
 
 
+    @Override
     public void displayInfo() {
 
         System.out.println("Appointment ID: " + appointmentId);
@@ -119,6 +165,7 @@ public class Appointment implements Displayable {
         System.out.println("Follow Up: " + isFollowUp);
     }
 
+
     @Override
     public void displaySummary() {
 
@@ -128,6 +175,7 @@ public class Appointment implements Displayable {
                         + " " + appointmentTime
         );
     }
+
 
     public void cancel() {
         setStatus("Cancelled");

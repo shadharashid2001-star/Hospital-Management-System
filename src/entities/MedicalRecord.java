@@ -2,7 +2,7 @@ package entities;
 
 import interfaces.Displayable;
 
-public class MedicalRecord  implements Displayable {
+public class MedicalRecord implements Displayable {
 
     private String recordId;
     private String patientId;
@@ -34,11 +34,13 @@ public class MedicalRecord  implements Displayable {
         setConfidential(isConfidential);
     }
 
+
     public String getRecordId() {
         return recordId;
     }
 
     public void setRecordId(String recordId) {
+
         if (recordId == null || recordId.trim().isEmpty()) {
             System.out.println("Record ID cannot be empty.");
             return;
@@ -46,11 +48,14 @@ public class MedicalRecord  implements Displayable {
 
         this.recordId = recordId;
     }
+
+
     public String getPatientId() {
         return patientId;
     }
 
     public void setPatientId(String patientId) {
+
         if (patientId == null || patientId.trim().isEmpty()) {
             System.out.println("Patient ID cannot be empty.");
             return;
@@ -59,18 +64,21 @@ public class MedicalRecord  implements Displayable {
         this.patientId = patientId;
     }
 
+
     public String getDoctorId() {
         return doctorId;
     }
 
     public void setDoctorId(String doctorId) {
+
         if (doctorId == null || doctorId.trim().isEmpty()) {
-        System.out.println("Doctor ID cannot be empty.");
-        return;
-    }
+            System.out.println("Doctor ID cannot be empty.");
+            return;
+        }
 
         this.doctorId = doctorId;
-}
+    }
+
 
     public String getVisitDate() {
         return visitDate;
@@ -85,6 +93,8 @@ public class MedicalRecord  implements Displayable {
 
         this.visitDate = visitDate;
     }
+
+
     public String getDiagnosis() {
         return diagnosis;
     }
@@ -92,6 +102,7 @@ public class MedicalRecord  implements Displayable {
     public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
     }
+
 
     public String getPrescription() {
         return prescription;
@@ -101,6 +112,7 @@ public class MedicalRecord  implements Displayable {
         this.prescription = prescription;
     }
 
+
     public String getNotes() {
         return notes;
     }
@@ -108,6 +120,7 @@ public class MedicalRecord  implements Displayable {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
 
     public boolean isConfidential() {
         return isConfidential;
@@ -117,24 +130,27 @@ public class MedicalRecord  implements Displayable {
         isConfidential = confidential;
     }
 
-    public String displayInfo() {
-        return "MedicalRecord{" +
-                "recordId='" + recordId + '\'' +
-                ", patientId='" + patientId + '\'' +
-                ", doctorId='" + doctorId + '\'' +
-                ", visitDate='" + visitDate + '\'' +
-                ", diagnosis='" + diagnosis + '\'' +
-                ", prescription='" + prescription + '\'' +
-                ", notes='" + notes + '\'' +
-                ", isConfidential=" + isConfidential +
-                '}';
+
+    @Override
+    public void displayInfo() {
+
+        System.out.println("Record ID: " + recordId);
+        System.out.println("Patient ID: " + patientId);
+        System.out.println("Doctor ID: " + doctorId);
+        System.out.println("Visit Date: " + visitDate);
+        System.out.println("Diagnosis: " + diagnosis);
+        System.out.println("Prescription: " + prescription);
+        System.out.println("Notes: " + notes);
+        System.out.println("Confidential: " + isConfidential);
     }
 
-    @@Override
+
+    @Override
     public void displaySummary() {
 
         System.out.println(
                 "Record: " + recordId
                         + " - Patient: " + patientId
         );
-    }}
+    }
+}

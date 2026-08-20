@@ -1,9 +1,12 @@
 package services;
 
 import entities.Patient;
+import interfaces.Manageable;
+import interfaces.Searchable;
+
 import java.util.ArrayList;
 
-public class PatientService {
+public class PatientService implements Manageable, Searchable {
 
     private ArrayList<Patient> patients = new ArrayList<>();
 

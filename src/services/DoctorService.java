@@ -1,20 +1,32 @@
-
-
 package services;
 
 import entities.Doctor;
 import entities.Surgeon;
-
+import interfaces.Manageable;
+import interfaces.Searchable;
 import java.util.ArrayList;
 
-public class DoctorService {
+public class DoctorService implements Manageable, Searchable {
 
     private ArrayList<Doctor> doctors = new ArrayList<>();
 
 
+    @Override
+    public boolean add(Object entity) {
+
+        if (!(entity instanceof Doctor)) {
+            return false;
+        }
+
+        doctors.add((Doctor) entity);
+
+        return true;
+    }
+
+
     public Doctor addDoctor(Doctor doctor) {
 
-        doctors.add(doctor);
+        add(doctor);
 
         return doctor;
     }
@@ -22,12 +34,13 @@ public class DoctorService {
 
     public Surgeon addSurgeon(Surgeon surgeon) {
 
-        doctors.add(surgeon);
+        add(surgeon);
 
         return surgeon;
     }
 
 
+    @Override
     public boolean removeById(String id) {
 
         for (int i = 0; i < doctors.size(); i++) {
@@ -44,13 +57,15 @@ public class DoctorService {
     }
 
 
-    public ArrayList<Doctor> getAll() {
+    @Override
+    public Object[] getAll() {
 
-        return doctors;
+        return doctors.toArray();
     }
 
 
-    public ArrayList<Doctor> search(String keyword) {
+    @Override
+    public Object[] search(String keyword) {
 
         ArrayList<Doctor> results = new ArrayList<>();
 
@@ -68,16 +83,16 @@ public class DoctorService {
             }
         }
 
-        return results;
+        return results.toArray();
     }
 
 
-    public Doctor searchById(String id) {
+    @Override
+    public Object searchById(String id) {
 
         for (Doctor doctor : doctors) {
 
             if (doctor.getId().equals(id)) {
-
                 return doctor;
             }
         }
@@ -90,12 +105,10 @@ public class DoctorService {
             String doctorId,
             String patientId) {
 
-        Doctor doctor = searchById(doctorId);
+        Doctor doctor =
+                (Doctor) searchById(doctorId);
 
         if (doctor == null) {
-
-            System.out.println("Doctor not found.");
-
             return false;
         }
 
@@ -130,50 +143,10 @@ public class DoctorService {
         for (Doctor doctor : doctors) {
 
             if (doctor.isOnCall()) {
-
                 results.add(doctor);
             }
         }
 
         return results;
-    }
-
-
-    public boolean updateFee(
-            String doctorId,
-            double fee) {
-
-        Doctor doctor = searchById(doctorId);
-
-        if (doctor == null) {
-
-            System.out.println("Doctor not found.");
-
-            return false;
-        }
-
-        doctor.updateFee(fee);
-
-        return true;
-    }
-
-
-    public boolean updateFee(
-            String doctorId,
-            double fee,
-            String reason) {
-
-        Doctor doctor = searchById(doctorId);
-
-        if (doctor == null) {
-
-            System.out.println("Doctor not found.");
-
-            return false;
-        }
-
-        doctor.updateFee(fee, reason);
-
-        return true;
     }
 }

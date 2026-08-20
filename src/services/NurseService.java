@@ -1,4 +1,8 @@
 package services;
 
-public class NurseService {
+import interfaces.Manageable;
+import interfaces.Searchable;
+
+public class NurseService implements Manageable, Searchable {
+
 }

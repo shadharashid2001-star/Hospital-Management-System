@@ -3,10 +3,12 @@ package services;
 import entities.Appointment;
 import entities.Patient;
 import entities.Doctor;
+import interfaces.Manageable;
+import interfaces.Searchable;
 
 import java.util.ArrayList;
 
-public class AppointmentService {
+public class AppointmentService implements Manageable, Searchable {
 
     private ArrayList<Appointment> appointments = new ArrayList<>();
 
