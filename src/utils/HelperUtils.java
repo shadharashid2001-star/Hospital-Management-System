@@ -65,8 +65,20 @@ public class HelperUtils {
         int length = phone.trim().length();
         return length >= 7 && length <= 15;
     }
-
-
-
-
+// check when value equals one of the allowed words
+public static boolean isOneOf(String value, String[] allowed) {
+    if (value == null || allowed == null) {
+        return false;
+    }
+    for (int i = 0; i < allowed.length; i++) {
+        if (allowed[i] != null && allowed[i].equalsIgnoreCase(value.trim())) {
+            return true;
+        }
+    }
+    return false;
 }
+}
+
+
+
+
