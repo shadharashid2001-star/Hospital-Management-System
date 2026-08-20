@@ -1045,4 +1045,5 @@ public class HospitalApp {
                 "Reports will be added in the next commit."
         );
     }
+
 }
