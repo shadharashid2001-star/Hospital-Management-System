@@ -1,6 +1,8 @@
 package entities;
 
-public class MedicalRecord {
+import interfaces.Displayable;
+
+public class MedicalRecord  implements Displayable {
 
     private String recordId;
     private String patientId;
@@ -127,4 +129,12 @@ public class MedicalRecord {
                 ", isConfidential=" + isConfidential +
                 '}';
     }
-}
+
+    @@Override
+    public void displaySummary() {
+
+        System.out.println(
+                "Record: " + recordId
+                        + " - Patient: " + patientId
+        );
+    }}

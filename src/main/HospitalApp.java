@@ -73,11 +73,7 @@ public class HospitalApp {
         HospitalApp app = new HospitalApp();
 
         ArrayList<Person> people = new ArrayList<>();
-        // people.add(patient);
-        // people.add(doctor);
-        // people.add(nurse);
-        // people.add(inPatient);
-        // people.add(surgeon);
+
 
         app.countByType(people);
 
