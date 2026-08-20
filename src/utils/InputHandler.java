@@ -1,6 +1,5 @@
 package utils;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class InputHandler {
@@ -9,11 +8,10 @@ public class InputHandler {
 
 
     public InputHandler() {
-
         scanner = new Scanner(System.in);
     }
 
-//text / whole number / decimal
+
     private boolean isWholeNumber(String line) {
 
         if (HelperUtils.isEmpty(line)) {
@@ -23,7 +21,6 @@ public class InputHandler {
         try {
 
             Integer.parseInt(line.trim());
-
             return true;
 
         } catch (NumberFormatException e) {
@@ -42,7 +39,6 @@ public class InputHandler {
         try {
 
             Double.parseDouble(line.trim());
-
             return true;
 
         } catch (NumberFormatException e) {
@@ -94,6 +90,41 @@ public class InputHandler {
     }
 
 
+    public int readInt(
+            String prompt,
+            int min,
+            int max) {
+
+        while (true) {
+
+            int value = readInt(
+                    prompt
+                            + " ("
+                            + min
+                            + "-"
+                            + max
+                            + ")"
+            );
+
+            if (HelperUtils.inRange(
+                    value,
+                    min,
+                    max)) {
+
+                return value;
+            }
+
+            System.out.println(
+                    "Number must be between "
+                            + min
+                            + " and "
+                            + max
+                            + "."
+            );
+        }
+    }
+
+
     public double readDouble(String prompt) {
 
         while (true) {
@@ -110,36 +141,76 @@ public class InputHandler {
             }
 
             System.out.println(
-                    "Please type a number. Decimals are allowed."
+                    "Please type a number."
             );
         }
     }
-public  boolean readYesNo(String prompt){
-        while (true){
-            System.out.println(prompt+ "yes/no");
-            String line =scanner.nextLine().trim().toLowerCase();
-            if(line.equals("yes")|| line.equals("y")){
-                return  true;
-            }if (line.equals("no")||line.equals("n")){
+
+
+    public boolean readYesNo(String prompt) {
+
+        while (true) {
+
+            System.out.print(
+                    prompt + " (yes/no): "
+            );
+
+            String line =
+                    scanner.nextLine()
+                            .trim()
+                            .toLowerCase();
+
+            if (line.equals("yes")
+                    || line.equals("y")) {
+
+                return true;
+            }
+
+            if (line.equals("no")
+                    || line.equals("n")) {
+
                 return false;
             }
-            System.out.println("please write yes or no");
+
+            System.out.println(
+                    "Please answer yes or no."
+            );
         }
-}
-    // read a value that must be one of the allowed words
-    public String readOneOf(String prompt, String[] allowed) {
+    }
+
+
+    public String readOneOf(
+            String prompt,
+            String[] allowed) {
+
         while (true) {
+
             String line = readText(prompt);
-            if (HelperUtils.isOneOf(line, allowed)) {
+
+            if (HelperUtils.isOneOf(
+                    line,
+                    allowed)) {
+
                 return line;
             }
-            System.out.print("Allowed values are: ");
-            for (int i = 0; i < allowed.length; i++) {
-                System.out.print(allowed[i]);
+
+            System.out.print(
+                    "Allowed values are: "
+            );
+
+            for (int i = 0;
+                 i < allowed.length;
+                 i++) {
+
+                System.out.print(
+                        allowed[i]
+                );
+
                 if (i < allowed.length - 1) {
                     System.out.print(", ");
                 }
             }
+
             System.out.println();
         }
     }
