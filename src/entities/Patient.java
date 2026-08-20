@@ -148,11 +148,15 @@ public class Patient extends Person {
 
     public boolean hasAllergy(String allergy) {
 
-        for (Object item : allergies) {
+        if (!HelperUtils.isValidText(allergy)) {
+            return false;
+        }
 
-            String storedAllergy = (String) item;
+        for (int i = 0; i < allergies.size(); i++) {
 
-            if (storedAllergy.equalsIgnoreCase(allergy)) {
+            String item = (String) allergies.get(i);
+
+            if (item.equalsIgnoreCase(allergy)) {
                 return true;
             }
         }
@@ -168,11 +172,11 @@ public class Patient extends Person {
             return;
         }
 
-        for (Object item : allergies) {
+        for (int i = 0; i < allergies.size(); i++) {
 
-            String allergy = (String) item;
-
-            System.out.println(allergy);
+            System.out.println(
+                    (String) allergies.get(i)
+            );
         }
     }
 
@@ -205,7 +209,7 @@ public class Patient extends Person {
 
 
     public void clearBalance() {
-        outstandingBalance = 0;
+        outstandingBalance = 0.0;
     }
 
 

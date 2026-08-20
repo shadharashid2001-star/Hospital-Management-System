@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class DoctorService implements Manageable, Searchable {
 
-    private ArrayList<Doctor> doctors = new ArrayList<>();
+    private ArrayList doctors = new ArrayList();
 
 
     @Override
@@ -19,7 +19,7 @@ public class DoctorService implements Manageable, Searchable {
             return false;
         }
 
-        doctors.add((Doctor) entity);
+        doctors.add(entity);
 
         return true;
     }
@@ -46,7 +46,10 @@ public class DoctorService implements Manageable, Searchable {
 
         for (int i = 0; i < doctors.size(); i++) {
 
-            if (doctors.get(i).getId().equals(id)) {
+            Doctor doctor =
+                    (Doctor) doctors.get(i);
+
+            if (doctor.getId().equals(id)) {
 
                 doctors.remove(i);
 
@@ -68,9 +71,12 @@ public class DoctorService implements Manageable, Searchable {
     @Override
     public Object[] search(String keyword) {
 
-        ArrayList<Doctor> results = new ArrayList<>();
+        ArrayList results = new ArrayList();
 
-        for (Doctor doctor : doctors) {
+        for (int i = 0; i < doctors.size(); i++) {
+
+            Doctor doctor =
+                    (Doctor) doctors.get(i);
 
             if (doctor.getFullName()
                     .toLowerCase()
@@ -91,9 +97,13 @@ public class DoctorService implements Manageable, Searchable {
     @Override
     public Object searchById(String id) {
 
-        for (Doctor doctor : doctors) {
+        for (int i = 0; i < doctors.size(); i++) {
+
+            Doctor doctor =
+                    (Doctor) doctors.get(i);
 
             if (doctor.getId().equals(id)) {
+
                 return doctor;
             }
         }
@@ -111,7 +121,9 @@ public class DoctorService implements Manageable, Searchable {
 
         if (doctor == null) {
 
-            System.out.println("Doctor not found.");
+            System.out.println(
+                    "Doctor not found."
+            );
 
             return false;
         }
@@ -122,12 +134,15 @@ public class DoctorService implements Manageable, Searchable {
     }
 
 
-    public ArrayList<Doctor> listBySpecialization(
+    public ArrayList listBySpecialization(
             String specialization) {
 
-        ArrayList<Doctor> results = new ArrayList<>();
+        ArrayList results = new ArrayList();
 
-        for (Doctor doctor : doctors) {
+        for (int i = 0; i < doctors.size(); i++) {
+
+            Doctor doctor =
+                    (Doctor) doctors.get(i);
 
             if (doctor.getSpecialization()
                     .equalsIgnoreCase(specialization)) {
@@ -140,11 +155,14 @@ public class DoctorService implements Manageable, Searchable {
     }
 
 
-    public ArrayList<Doctor> availableDoctors() {
+    public ArrayList availableDoctors() {
 
-        ArrayList<Doctor> results = new ArrayList<>();
+        ArrayList results = new ArrayList();
 
-        for (Doctor doctor : doctors) {
+        for (int i = 0; i < doctors.size(); i++) {
+
+            Doctor doctor =
+                    (Doctor) doctors.get(i);
 
             if (doctor.isOnCall()) {
 

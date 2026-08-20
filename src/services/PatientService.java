@@ -5,10 +5,11 @@ import entities.InPatient;
 import interfaces.Manageable;
 import interfaces.Searchable;
 
+import java.util.ArrayList;
+
 public class PatientService implements Manageable, Searchable {
 
-    private Patient[] patients = new Patient[100];
-    private int count = 0;
+    private ArrayList patients = new ArrayList();
 
 
     public Patient addPatient(
@@ -87,12 +88,7 @@ public class PatientService implements Manageable, Searchable {
             return false;
         }
 
-        if (count >= patients.length) {
-            return false;
-        }
-
-        patients[count] = (Patient) entity;
-        count++;
+        patients.add(entity);
 
         return true;
     }
@@ -101,16 +97,18 @@ public class PatientService implements Manageable, Searchable {
     @Override
     public boolean removeById(String id) {
 
-        for (int i = 0; i < count; i++) {
+        if (id == null || id.trim().isEmpty()) {
+            return false;
+        }
 
-            if (patients[i].getId().equals(id)) {
+        for (int i = 0; i < patients.size(); i++) {
 
-                for (int j = i; j < count - 1; j++) {
-                    patients[j] = patients[j + 1];
-                }
+            Patient patient =
+                    (Patient) patients.get(i);
 
-                patients[count - 1] = null;
-                count--;
+            if (patient.getId().equals(id)) {
+
+                patients.remove(i);
 
                 return true;
             }
@@ -123,51 +121,53 @@ public class PatientService implements Manageable, Searchable {
     @Override
     public Object[] getAll() {
 
-        Patient[] result = new Patient[count];
-
-        for (int i = 0; i < count; i++) {
-            result[i] = patients[i];
-        }
-
-        return result;
+        return patients.toArray();
     }
 
 
     @Override
     public Object[] search(String keyword) {
 
-        Patient[] temp = new Patient[count];
-        int found = 0;
+        ArrayList results = new ArrayList();
 
-        for (int i = 0; i < count; i++) {
+        if (keyword == null
+                || keyword.trim().isEmpty()) {
 
-            if (patients[i]
-                    .getFullName()
+            return results.toArray();
+        }
+
+        for (int i = 0; i < patients.size(); i++) {
+
+            Patient patient =
+                    (Patient) patients.get(i);
+
+            if (patient.getFullName()
                     .toLowerCase()
                     .contains(keyword.toLowerCase())) {
 
-                temp[found] = patients[i];
-                found++;
+                results.add(patient);
             }
         }
 
-        Patient[] result = new Patient[found];
-
-        for (int i = 0; i < found; i++) {
-            result[i] = temp[i];
-        }
-
-        return result;
+        return results.toArray();
     }
 
 
     @Override
     public Object searchById(String id) {
 
-        for (int i = 0; i < count; i++) {
+        if (id == null || id.trim().isEmpty()) {
+            return null;
+        }
 
-            if (patients[i].getId().equals(id)) {
-                return patients[i];
+        for (int i = 0; i < patients.size(); i++) {
+
+            Patient patient =
+                    (Patient) patients.get(i);
+
+            if (patient.getId().equals(id)) {
+
+                return patient;
             }
         }
 
@@ -210,27 +210,22 @@ public class PatientService implements Manageable, Searchable {
     }
 
 
-    public InPatient[] listInPatients() {
+    public ArrayList listInPatients() {
 
-        InPatient[] temp = new InPatient[count];
-        int found = 0;
+        ArrayList results = new ArrayList();
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < patients.size(); i++) {
 
-            if (patients[i] instanceof InPatient) {
+            Patient patient =
+                    (Patient) patients.get(i);
 
-                temp[found] = (InPatient) patients[i];
-                found++;
+            if (patient instanceof InPatient) {
+
+                results.add(patient);
             }
         }
 
-        InPatient[] result = new InPatient[found];
-
-        for (int i = 0; i < found; i++) {
-            result[i] = temp[i];
-        }
-
-        return result;
+        return results;
     }
 
 
@@ -238,9 +233,12 @@ public class PatientService implements Manageable, Searchable {
 
         double total = 0.0;
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < patients.size(); i++) {
 
-            total += patients[i].getOutstandingBalance();
+            Patient patient =
+                    (Patient) patients.get(i);
+
+            total += patient.getOutstandingBalance();
         }
 
         return total;
