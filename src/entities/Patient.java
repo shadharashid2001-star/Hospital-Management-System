@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import utils.HelperUtils;
 
 public class Patient extends Person {
 
@@ -8,8 +9,8 @@ public class Patient extends Person {
     private String emergencyContact;
     private String registrationDate;
 
-    private ArrayList<String> allergies = new ArrayList<>();
-    private ArrayList<String> recordIds = new ArrayList<>();
+    private ArrayList allergies = new ArrayList();
+    private ArrayList recordIds = new ArrayList();
 
     private double outstandingBalance;
     private boolean insured;
@@ -42,7 +43,8 @@ public class Patient extends Person {
                 phone,
                 email,
                 address,
-                nationalId, age,
+                nationalId,
+                age,
                 active
         );
 
@@ -59,6 +61,12 @@ public class Patient extends Person {
     }
 
     public void setBloodGroup(String bloodGroup) {
+
+        if (!HelperUtils.isValidText(bloodGroup)) {
+            System.out.println("Blood group cannot be empty.");
+            return;
+        }
+
         this.bloodGroup = bloodGroup;
     }
 
@@ -68,6 +76,12 @@ public class Patient extends Person {
     }
 
     public void setEmergencyContact(String emergencyContact) {
+
+        if (!HelperUtils.isValidText(emergencyContact)) {
+            System.out.println("Emergency contact cannot be empty.");
+            return;
+        }
+
         this.emergencyContact = emergencyContact;
     }
 
@@ -77,28 +91,23 @@ public class Patient extends Person {
     }
 
     public void setRegistrationDate(String registrationDate) {
+
+        if (!HelperUtils.isValidText(registrationDate)) {
+            System.out.println("Registration date cannot be empty.");
+            return;
+        }
+
         this.registrationDate = registrationDate;
     }
 
 
-    public ArrayList<String> getAllergies() {
+    public ArrayList getAllergies() {
         return allergies;
     }
 
-    public void setAllergies(ArrayList<String> allergies) {
-        this.allergies = allergies;
-    }
 
-
-    public ArrayList<String> getRecordIds() {
+    public ArrayList getRecordIds() {
         return recordIds;
-    }
-
-    public void setRecordIds(ArrayList<String> recordIds) {
-        if (recordIds==null || recordIds.isEmpty()){
-            System.out.println("recorded must not empty");
-        }
-        this.recordIds = recordIds;
     }
 
 
@@ -108,7 +117,7 @@ public class Patient extends Person {
 
     public void setOutstandingBalance(double outstandingBalance) {
 
-        if (outstandingBalance < 0) {
+        if (!HelperUtils.isPositive(outstandingBalance)) {
             System.out.println("Balance cannot be negative.");
             return;
         }
@@ -128,7 +137,7 @@ public class Patient extends Person {
 
     public void addAllergy(String allergy) {
 
-        if (allergy == null || allergy.trim().isEmpty()) {
+        if (!HelperUtils.isValidText(allergy)) {
             System.out.println("Allergy cannot be empty.");
             return;
         }
@@ -139,9 +148,11 @@ public class Patient extends Person {
 
     public boolean hasAllergy(String allergy) {
 
-        for (String item : allergies) {
+        for (Object item : allergies) {
 
-            if (item.equalsIgnoreCase(allergy)) {
+            String storedAllergy = (String) item;
+
+            if (storedAllergy.equalsIgnoreCase(allergy)) {
                 return true;
             }
         }
@@ -157,7 +168,10 @@ public class Patient extends Person {
             return;
         }
 
-        for (String allergy : allergies) {
+        for (Object item : allergies) {
+
+            String allergy = (String) item;
+
             System.out.println(allergy);
         }
     }
@@ -165,7 +179,7 @@ public class Patient extends Person {
 
     public void addRecordId(String recordId) {
 
-        if (recordId == null || recordId.trim().isEmpty()) {
+        if (!HelperUtils.isValidText(recordId)) {
             System.out.println("Record ID cannot be empty.");
             return;
         }
@@ -181,7 +195,7 @@ public class Patient extends Person {
 
     public void addToBalance(double amount) {
 
-        if (amount < 0) {
+        if (!HelperUtils.isPositive(amount)) {
             System.out.println("Amount cannot be negative.");
             return;
         }
@@ -192,6 +206,21 @@ public class Patient extends Person {
 
     public void clearBalance() {
         outstandingBalance = 0;
+    }
+
+
+    public void updateContact(String phone) {
+
+        setPhoneNumber(phone);
+    }
+
+
+    public void updateContact(
+            String phone,
+            String email) {
+
+        setPhoneNumber(phone);
+        setEmail(email);
     }
 
 
@@ -206,6 +235,6 @@ public class Patient extends Person {
         System.out.println("Allergies: " + allergies);
         System.out.println("Record Count: " + recordIds.size());
         System.out.println("Outstanding Balance: " + outstandingBalance);
-        System.out.println("Insured:; " + insured);
+        System.out.println("Insured: " + insured);
     }
 }

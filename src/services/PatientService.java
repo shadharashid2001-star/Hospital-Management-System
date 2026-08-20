@@ -1,15 +1,14 @@
 package services;
 
 import entities.Patient;
+import entities.InPatient;
 import interfaces.Manageable;
 import interfaces.Searchable;
 
-import java.util.ArrayList;
-
 public class PatientService implements Manageable, Searchable {
 
-    private ArrayList<Patient> patients = new ArrayList<>();
-
+    private Patient[] patients = new Patient[100];
+    private int count = 0;
 
 
     public Patient addPatient(
@@ -21,25 +20,26 @@ public class PatientService implements Manageable, Searchable {
                 id,
                 firstName,
                 lastName,
-                "2001-01-29",
+                "01-01-2000",
                 "Unknown",
                 "00000000",
-                "",
-                "",
-                id,
-                0,
+                "unknown@email.com",
+                "Unknown",
+                "N/A",
+                20,
                 true,
                 "Unknown",
-                "",
-                "2026-01-01",
-                0,
+                "Unknown",
+                "01-01-2026",
+                0.0,
                 false
         );
 
-        patients.add(patient);
+        add(patient);
 
         return patient;
     }
+
 
     public Patient addPatient(
             String id,
@@ -51,22 +51,22 @@ public class PatientService implements Manageable, Searchable {
                 id,
                 firstName,
                 lastName,
-                "2000-01-01",
+                "01-01-2000",
                 "Unknown",
                 "00000000",
-                "",
-                "",
-                id,
-                0,
+                "unknown@email.com",
+                "Unknown",
+                "N/A",
+                20,
                 true,
                 bloodGroup,
-                "",
-                "2026-01-01",
-                0,
+                "Unknown",
+                "01-01-2026",
+                0.0,
                 false
         );
 
-        patients.add(patient);
+        add(patient);
 
         return patient;
     }
@@ -74,28 +74,175 @@ public class PatientService implements Manageable, Searchable {
 
     public Patient addPatient(Patient patient) {
 
-        patients.add(patient);
+        add(patient);
 
         return patient;
     }
 
 
-    public ArrayList<Patient> getPatients() {
-        return patients;
+    @Override
+    public boolean add(Object entity) {
+
+        if (!(entity instanceof Patient)) {
+            return false;
+        }
+
+        if (count >= patients.length) {
+            return false;
+        }
+
+        patients[count] = (Patient) entity;
+        count++;
+
+        return true;
     }
+
 
     @Override
     public boolean removeById(String id) {
+
+        for (int i = 0; i < count; i++) {
+
+            if (patients[i].getId().equals(id)) {
+
+                for (int j = i; j < count - 1; j++) {
+                    patients[j] = patients[j + 1];
+                }
+
+                patients[count - 1] = null;
+                count--;
+
+                return true;
+            }
+        }
+
         return false;
     }
 
+
+    @Override
+    public Object[] getAll() {
+
+        Patient[] result = new Patient[count];
+
+        for (int i = 0; i < count; i++) {
+            result[i] = patients[i];
+        }
+
+        return result;
+    }
+
+
     @Override
     public Object[] search(String keyword) {
-        return new Object[0];
+
+        Patient[] temp = new Patient[count];
+        int found = 0;
+
+        for (int i = 0; i < count; i++) {
+
+            if (patients[i]
+                    .getFullName()
+                    .toLowerCase()
+                    .contains(keyword.toLowerCase())) {
+
+                temp[found] = patients[i];
+                found++;
+            }
+        }
+
+        Patient[] result = new Patient[found];
+
+        for (int i = 0; i < found; i++) {
+            result[i] = temp[i];
+        }
+
+        return result;
     }
+
 
     @Override
     public Object searchById(String id) {
+
+        for (int i = 0; i < count; i++) {
+
+            if (patients[i].getId().equals(id)) {
+                return patients[i];
+            }
+        }
+
         return null;
+    }
+
+
+    public boolean updateContact(
+            String patientId,
+            String phone) {
+
+        Patient patient =
+                (Patient) searchById(patientId);
+
+        if (patient == null) {
+            return false;
+        }
+
+        patient.updateContact(phone);
+
+        return true;
+    }
+
+
+    public boolean updateContact(
+            String patientId,
+            String phone,
+            String email) {
+
+        Patient patient =
+                (Patient) searchById(patientId);
+
+        if (patient == null) {
+            return false;
+        }
+
+        patient.updateContact(phone, email);
+
+        return true;
+    }
+
+
+    public InPatient[] listInPatients() {
+
+        InPatient[] temp = new InPatient[count];
+        int found = 0;
+
+        for (int i = 0; i < count; i++) {
+
+            if (patients[i] instanceof InPatient) {
+
+                temp[found] = (InPatient) patients[i];
+                found++;
+            }
+        }
+
+        InPatient[] result = new InPatient[found];
+
+        for (int i = 0; i < found; i++) {
+            result[i] = temp[i];
+        }
+
+        return result;
+    }
+
+
+    public double totalOutstanding() {
+
+        double total = 0.0;
+
+        for (int i = 0; i < count; i++) {
+
+            total += patients[i].getOutstandingBalance();
+        }
+
+        return total;
     }
 }
