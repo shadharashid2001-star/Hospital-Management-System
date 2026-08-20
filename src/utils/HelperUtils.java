@@ -56,6 +56,15 @@ public class HelperUtils {
     public static boolean isValidAge(int age) {
         return inRange(age, 0, 120);
     }
+    //length of phone
+
+    public static boolean isValidPhone(String phone) {
+        if (isEmpty(phone)) {
+            return false;
+        }
+        int length = phone.trim().length();
+        return length >= 7 && length <= 15;
+    }
 
 
 
