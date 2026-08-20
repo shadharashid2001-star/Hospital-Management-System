@@ -3,14 +3,24 @@ package main;
 import entities.Patient;
 import entities.Doctor;
 import entities.Surgeon;
+import entities.Nurse;
+import entities.Appointment;
+import entities.MedicalRecord;
+
 import services.PatientService;
 import services.DoctorService;
+import services.NurseService;
+import services.AppointmentService;
+import services.RecordService;
+
 import utils.InputHandler;
+
 import java.util.ArrayList;
 
 public class HospitalApp {
 
-    private InputHandler input = new InputHandler();
+    private InputHandler input =
+            new InputHandler();
 
     private PatientService patientService =
             new PatientService();
@@ -18,10 +28,20 @@ public class HospitalApp {
     private DoctorService doctorService =
             new DoctorService();
 
+    private NurseService nurseService =
+            new NurseService();
+
+    private AppointmentService appointmentService =
+            new AppointmentService();
+
+    private RecordService recordService =
+            new RecordService();
+
 
     public static void main(String[] args) {
 
-        HospitalApp app = new HospitalApp();
+        HospitalApp app =
+                new HospitalApp();
 
         app.start();
     }
@@ -96,280 +116,67 @@ public class HospitalApp {
 
     public void patientMenu() {
 
-        boolean back = false;
-
-        while (!back) {
-
-            System.out.println();
-            System.out.println(
-                    "===== Patient Menu ====="
-            );
-
-            System.out.println("1. Add Patient");
-            System.out.println("2. View All Patients");
-            System.out.println("3. Search Patient");
-            System.out.println("4. Update Contact");
-            System.out.println("5. Remove Patient");
-            System.out.println("6. List InPatients");
-            System.out.println("7. Total Outstanding");
-            System.out.println("8. Back");
-
-            int choice = input.readInt(
-                    "Choose an option",
-                    1,
-                    8
-            );
-
-            if (choice == 1) {
-
-                addPatientHandler();
-
-            } else if (choice == 2) {
-
-                viewPatientsHandler();
-
-            } else if (choice == 3) {
-
-                searchPatientHandler();
-
-            } else if (choice == 4) {
-
-                updatePatientHandler();
-
-            } else if (choice == 5) {
-
-                removePatientHandler();
-
-            } else if (choice == 6) {
-
-                listInPatientsHandler();
-
-            } else if (choice == 7) {
-
-                showOutstandingHandler();
-
-            } else if (choice == 8) {
-
-                back = true;
-            }
-        }
-    }
-
-
-    public void addPatientHandler() {
-
-        String id =
-                input.readText("Patient ID");
-
-        String firstName =
-                input.readText("First Name");
-
-        String lastName =
-                input.readText("Last Name");
-
-        String bloodGroup =
-                input.readText("Blood Group");
-
-        patientService.addPatient(
-                id,
-                firstName,
-                lastName,
-                bloodGroup
-        );
-
-        System.out.println(
-                "Patient added successfully."
-        );
-    }
-
-
-    public void viewPatientsHandler() {
-
-        Object[] patients =
-                patientService.getAll();
-
-        if (patients.length == 0) {
-
-            System.out.println("No patients found.");
-            return;
-        }
-
-        for (int i = 0; i < patients.length; i++) {
-
-            Patient patient = (Patient) patients[i];
-
-            patient.displaySummary();
-        }
-    }
-
-
-    public void searchPatientHandler() {
-
-        String keyword = input.readText("Search keyword");
-
-        Object[] results = patientService.search(keyword);
-
-        if (results.length == 0) {
-
-            System.out.println("No patients found.");
-            return;
-        }
-
-        for (int i = 0; i < results.length; i++) {
-
-            Patient patient = (Patient) results[i];
-
-            patient.displayInfo();
-        }
-    }
-
-
-    public void updatePatientHandler() {
-
-        String id = input.readText("Patient ID");
-
-        String phone = input.readText("New Phone");
-
-        String email = input.readText("New Email");
-
-        boolean updated =
-                patientService.updateContact(
-                        id,
-                        phone,
-                        email
-                );
-
-        if (updated) {
-
-            System.out.println("Patient contact updated."
-            );
-
-        } else {
-
-            System.out.println("Patient not found."
-            );
-        }
-    }
-
-
-    public void removePatientHandler() {
-
-        String id =
-                input.readText("Patient ID");
-
-        boolean removed =
-                patientService.removeById(id);
-
-        if (removed) {
-
-            System.out.println("Patient removed."
-            );
-
-        } else {
-
-            System.out.println("Patient not found."
-            );
-        }
-    }
-
-
-    public void listInPatientsHandler() {
-
-        ArrayList results =
-                patientService.listInPatients();
-
-        if (results.isEmpty()) {
-
-            System.out.println("No InPatients found."
-            );
-
-            return;
-        }
-
-        for (int i = 0; i < results.size(); i++) {
-
-            Patient patient = (Patient) results.get(i);
-
-            patient.displayInfo();
-        }
-    }
-
-
-    public void showOutstandingHandler() {
-
-        double total = patientService.totalOutstanding();
-
-        System.out.println(
-                "Total Outstanding: " + total
-        );
+        System.out.println("Patient menu already added.");
     }
 
 
     public void doctorMenu() {
 
+        System.out.println("Doctor menu already added.");
+    }
+
+
+    public void nurseMenu() {
+
         boolean back = false;
 
         while (!back) {
 
             System.out.println();
             System.out.println(
-                    "===== Doctor Menu ====="
+                    "===== Nurse Menu ====="
             );
 
-            System.out.println("1. Add Doctor");
-            System.out.println("2. View All Doctors");
-            System.out.println("3. Search Doctor");
-            System.out.println("4. Update Fee");
-            System.out.println("5. Remove Doctor");
-            System.out.println("6. Add Surgeon");
-            System.out.println("7. Assign Patient");
-            System.out.println("8. List By Specialization");
-            System.out.println("9. Available Doctors");
-            System.out.println("10. Back");
+            System.out.println("1. Add Nurse");
+            System.out.println("2. View All Nurses");
+            System.out.println("3. Search Nurse");
+            System.out.println("4. Remove Nurse");
+            System.out.println("5. List By Shift");
+            System.out.println("6. Reassign Patient");
+            System.out.println("7. Back");
 
-            int choice = input.readInt(
-                    "Choose an option",
-                    1,
-                    10
-            );
+            int choice =
+                    input.readInt(
+                            "Choose an option",
+                            1,
+                            7
+                    );
 
             if (choice == 1) {
 
-                addDoctorHandler();
+                addNurseHandler();
 
             } else if (choice == 2) {
 
-                viewDoctorsHandler();
+                viewNursesHandler();
 
             } else if (choice == 3) {
 
-                searchDoctorHandler();
+                searchNurseHandler();
 
             } else if (choice == 4) {
 
-                updateDoctorFeeHandler();
+                removeNurseHandler();
 
             } else if (choice == 5) {
 
-                removeDoctorHandler();
+                listNursesByShiftHandler();
 
             } else if (choice == 6) {
 
-                addSurgeonHandler();
+                reassignNurseHandler();
 
             } else if (choice == 7) {
-
-                assignPatientHandler();
-
-            } else if (choice == 8) {
-
-                listDoctorsBySpecializationHandler();
-
-            } else if (choice == 9) {
-
-                availableDoctorsHandler();
-
-            } else if (choice == 10) {
 
                 back = true;
             }
@@ -377,174 +184,10 @@ public class HospitalApp {
     }
 
 
-    public void addDoctorHandler() {
-
-        String id = input.readText("Doctor ID");
-
-        String firstName = input.readText("First Name");
-
-        String lastName = input.readText("Last Name");
-
-        String dateOfBirth = input.readText("Date of Birth");
-
-        String gender = input.readText("Gender");
-
-        String phone = input.readText("Phone");
-
-        String email = input.readText("Email");
-
-        String address = input.readText("Address");
-
-        String nationalId = input.readText("National ID");
-
-        int age = input.readInt("Age", 0, 120);
-
-        String specialization = input.readText("Specialization");
-
-        int experience = input.readInt("Experience Years");
-
-        double fee = input.readDouble("Consultation Fee");
-
-        boolean onCall = input.readYesNo("Is doctor on call");
-
-        Doctor doctor = new Doctor(
-                id,
-                firstName,
-                lastName,
-                dateOfBirth,
-                gender,
-                phone,
-                email,
-                address,
-                nationalId,
-                age,
-                true,
-                specialization,
-                experience,
-                fee,
-                onCall
-        );
-
-        doctorService.addDoctor(doctor);
-
-        System.out.println(
-                "Doctor added successfully."
-        );
-    }
-
-
-    public void viewDoctorsHandler() {
-
-        Object[] doctors =
-                doctorService.getAll();
-
-        if (doctors.length == 0) {
-
-            System.out.println(
-                    "No doctors found."
-            );
-
-            return;
-        }
-
-        for (int i = 0; i < doctors.length; i++) {
-
-            Doctor doctor =
-                    (Doctor) doctors[i];
-
-            doctor.displaySummary();
-        }
-    }
-
-
-    public void searchDoctorHandler() {
-
-        String keyword =
-                input.readText("Search keyword");
-
-        Object[] results =
-                doctorService.search(keyword);
-
-        if (results.length == 0) {
-
-            System.out.println(
-                    "No doctors found."
-            );
-
-            return;
-        }
-
-        for (int i = 0; i < results.length; i++) {
-
-            Doctor doctor =
-                    (Doctor) results[i];
-
-            doctor.displayInfo();
-        }
-    }
-
-
-    public void updateDoctorFeeHandler() {
+    public void addNurseHandler() {
 
         String id =
-                input.readText("Doctor ID");
-
-        Doctor doctor =
-                (Doctor) doctorService.searchById(id);
-
-        if (doctor == null) {
-
-            System.out.println(
-                    "Doctor not found."
-            );
-
-            return;
-        }
-
-        double fee =
-                input.readDouble("New Fee");
-
-        String reason =
-                input.readText("Reason");
-
-        doctor.updateFee(
-                fee,
-                reason
-        );
-
-        System.out.println(
-                "Doctor fee updated."
-        );
-    }
-
-
-    public void removeDoctorHandler() {
-
-        String id =
-                input.readText("Doctor ID");
-
-        boolean removed =
-                doctorService.removeById(id);
-
-        if (removed) {
-
-            System.out.println(
-                    "Doctor removed."
-            );
-
-        } else {
-
-            System.out.println(
-                    "Doctor not found."
-            );
-        }
-    }
-
-
-    public void addSurgeonHandler() {
-
-        String id =
-                input.readText("Surgeon ID");
+                input.readText("Nurse ID");
 
         String firstName =
                 input.readText("First Name");
@@ -573,27 +216,27 @@ public class HospitalApp {
         int age =
                 input.readInt("Age", 0, 120);
 
-        String specialization =
-                input.readText("Specialization");
+        String departmentId =
+                input.readText("Department ID");
 
-        int experience =
-                input.readInt("Experience Years");
+        String[] shifts = {
+                "Morning",
+                "Evening",
+                "Night"
+        };
 
-        double fee =
-                input.readDouble("Consultation Fee");
-
-        boolean onCall =
-                input.readYesNo("Is surgeon on call");
-
-        int surgeries =
-                input.readInt("Surgeries Performed");
-
-        boolean theatreAccess =
-                input.readYesNo(
-                        "Operation Theatre Access"
+        String shift =
+                input.readOneOf(
+                        "Shift",
+                        shifts
                 );
 
-        Surgeon surgeon = new Surgeon(
+        int yearsOfService =
+                input.readInt(
+                        "Years of Service"
+                );
+
+        Nurse nurse = new Nurse(
                 id,
                 firstName,
                 lastName,
@@ -605,89 +248,114 @@ public class HospitalApp {
                 nationalId,
                 age,
                 true,
-                specialization,
-                experience,
-                fee,
-                onCall,
-                surgeries,
-                theatreAccess
+                departmentId,
+                shift,
+                yearsOfService
         );
 
-        doctorService.addSurgeon(surgeon);
+        nurseService.add(nurse);
 
         System.out.println(
-                "Surgeon added successfully."
+                "Nurse added successfully."
         );
     }
 
 
-    public void assignPatientHandler() {
+    public void viewNursesHandler() {
 
-        String doctorId =
-                input.readText("Doctor ID");
+        Object[] nurses =
+                nurseService.getAll();
 
-        String patientId =
-                input.readText("Patient ID");
-
-        boolean success =
-                doctorService.assignPatient(
-                        doctorId,
-                        patientId
-                );
-
-        if (success) {
+        if (nurses.length == 0) {
 
             System.out.println(
-                    "Patient assigned."
+                    "No nurses found."
+            );
+
+            return;
+        }
+
+        for (int i = 0; i < nurses.length; i++) {
+
+            Nurse nurse =
+                    (Nurse) nurses[i];
+
+            nurse.displayInfo();
+        }
+    }
+
+
+    public void searchNurseHandler() {
+
+        String keyword =
+                input.readText("Search keyword");
+
+        Object[] results =
+                nurseService.search(keyword);
+
+        if (results.length == 0) {
+
+            System.out.println(
+                    "No nurses found."
+            );
+
+            return;
+        }
+
+        for (int i = 0; i < results.length; i++) {
+
+            Nurse nurse =
+                    (Nurse) results[i];
+
+            nurse.displayInfo();
+        }
+    }
+
+
+    public void removeNurseHandler() {
+
+        String id =
+                input.readText("Nurse ID");
+
+        boolean removed =
+                nurseService.removeById(id);
+
+        if (removed) {
+
+            System.out.println(
+                    "Nurse removed."
             );
 
         } else {
 
             System.out.println(
-                    "Doctor not found."
+                    "Nurse not found."
             );
         }
     }
 
 
-    public void listDoctorsBySpecializationHandler() {
+    public void listNursesByShiftHandler() {
 
-        String specialization =
-                input.readText("Specialization");
+        String[] shifts = {
+                "Morning",
+                "Evening",
+                "Night"
+        };
 
-        ArrayList results =
-                doctorService.listBySpecialization(
-                        specialization
+        String shift =
+                input.readOneOf(
+                        "Shift",
+                        shifts
                 );
 
-        if (results.isEmpty()) {
-
-            System.out.println(
-                    "No doctors found."
-            );
-
-            return;
-        }
-
-        for (int i = 0; i < results.size(); i++) {
-
-            Doctor doctor =
-                    (Doctor) results.get(i);
-
-            doctor.displayInfo();
-        }
-    }
-
-
-    public void availableDoctorsHandler() {
-
         ArrayList results =
-                doctorService.availableDoctors();
+                nurseService.listByShift(shift);
 
         if (results.isEmpty()) {
 
             System.out.println(
-                    "No available doctors."
+                    "No nurses found for this shift."
             );
 
             return;
@@ -695,38 +363,686 @@ public class HospitalApp {
 
         for (int i = 0; i < results.size(); i++) {
 
-            Doctor doctor =
-                    (Doctor) results.get(i);
+            Nurse nurse =
+                    (Nurse) results.get(i);
 
-            doctor.displayInfo();
+            nurse.displayInfo();
         }
     }
 
 
-    public void nurseMenu() {
+    public void reassignNurseHandler() {
 
+        String nurseId =
+                input.readText("Nurse ID");
 
-        System.out.println("Nurse menu.");
+        String oldPatientId =
+                input.readText("Old Patient ID");
+
+        String newPatientId =
+                input.readText("New Patient ID");
+
+        boolean success =
+                nurseService.reassign(
+                        nurseId,
+                        oldPatientId,
+                        newPatientId
+                );
+
+        if (success) {
+
+            System.out.println(
+                    "Patient reassigned successfully."
+            );
+
+        } else {
+
+            System.out.println(
+                    "Nurse not found."
+            );
+        }
     }
 
 
     public void appointmentMenu() {
 
+        boolean back = false;
 
-        System.out.println("Appointment menu.");
+        while (!back) {
+
+            System.out.println();
+            System.out.println(
+                    "===== Appointment Menu ====="
+            );
+
+            System.out.println("1. Schedule Appointment");
+            System.out.println("2. View All");
+            System.out.println("3. Search");
+            System.out.println("4. Cancel");
+            System.out.println("5. Complete");
+            System.out.println("6. Reschedule");
+            System.out.println("7. Remove");
+            System.out.println("8. List By Status");
+            System.out.println("9. List By Patient");
+            System.out.println("10. Back");
+
+            int choice =
+                    input.readInt(
+                            "Choose an option",
+                            1,
+                            10
+                    );
+
+            if (choice == 1) {
+
+                scheduleAppointmentHandler();
+
+            } else if (choice == 2) {
+
+                viewAppointmentsHandler();
+
+            } else if (choice == 3) {
+
+                searchAppointmentHandler();
+
+            } else if (choice == 4) {
+
+                cancelAppointmentHandler();
+
+            } else if (choice == 5) {
+
+                completeAppointmentHandler();
+
+            } else if (choice == 6) {
+
+                rescheduleAppointmentHandler();
+
+            } else if (choice == 7) {
+
+                removeAppointmentHandler();
+
+            } else if (choice == 8) {
+
+                listAppointmentsByStatusHandler();
+
+            } else if (choice == 9) {
+
+                listAppointmentsByPatientHandler();
+
+            } else if (choice == 10) {
+
+                back = true;
+            }
+        }
+    }
+
+
+    public void scheduleAppointmentHandler() {
+
+        String appointmentId =
+                input.readText(
+                        "Appointment ID"
+                );
+
+        String patientId =
+                input.readText(
+                        "Patient ID"
+                );
+
+        String doctorId =
+                input.readText(
+                        "Doctor ID"
+                );
+
+        String date =
+                input.readText(
+                        "Appointment Date"
+                );
+
+        String time =
+                input.readText(
+                        "Appointment Time"
+                );
+
+        appointmentService.schedule(
+                appointmentId,
+                patientId,
+                doctorId,
+                date,
+                time
+        );
+
+        System.out.println(
+                "Appointment scheduled."
+        );
+    }
+
+
+    public void viewAppointmentsHandler() {
+
+        Object[] appointments =
+                appointmentService.getAll();
+
+        if (appointments.length == 0) {
+
+            System.out.println(
+                    "No appointments found."
+            );
+
+            return;
+        }
+
+        for (int i = 0;
+             i < appointments.length;
+             i++) {
+
+            Appointment appointment =
+                    (Appointment) appointments[i];
+
+            appointment.displayInfo();
+        }
+    }
+
+
+    public void searchAppointmentHandler() {
+
+        String keyword =
+                input.readText(
+                        "Search keyword"
+                );
+
+        Object[] results =
+                appointmentService.search(
+                        keyword
+                );
+
+        if (results.length == 0) {
+
+            System.out.println(
+                    "No appointments found."
+            );
+
+            return;
+        }
+
+        for (int i = 0;
+             i < results.length;
+             i++) {
+
+            Appointment appointment =
+                    (Appointment) results[i];
+
+            appointment.displayInfo();
+        }
+    }
+
+
+    public void cancelAppointmentHandler() {
+
+        String id =
+                input.readText(
+                        "Appointment ID"
+                );
+
+        boolean success =
+                appointmentService.cancel(id);
+
+        if (success) {
+
+            System.out.println(
+                    "Appointment cancelled."
+            );
+
+        } else {
+
+            System.out.println(
+                    "Appointment not found."
+            );
+        }
+    }
+
+
+    public void completeAppointmentHandler() {
+
+        String id =
+                input.readText(
+                        "Appointment ID"
+                );
+
+        boolean success =
+                appointmentService.complete(id);
+
+        if (success) {
+
+            System.out.println(
+                    "Appointment completed."
+            );
+
+        } else {
+
+            System.out.println(
+                    "Appointment not found."
+            );
+        }
+    }
+
+
+    public void rescheduleAppointmentHandler() {
+
+        String id =
+                input.readText(
+                        "Appointment ID"
+                );
+
+        String newDate =
+                input.readText(
+                        "New Date"
+                );
+
+        String newTime =
+                input.readText(
+                        "New Time"
+                );
+
+        boolean success =
+                appointmentService.reschedule(
+                        id,
+                        newDate,
+                        newTime
+                );
+
+        if (success) {
+
+            System.out.println(
+                    "Appointment rescheduled."
+            );
+
+        } else {
+
+            System.out.println(
+                    "Appointment not found."
+            );
+        }
+    }
+
+
+    public void removeAppointmentHandler() {
+
+        String id =
+                input.readText(
+                        "Appointment ID"
+                );
+
+        boolean removed =
+                appointmentService.removeById(id);
+
+        if (removed) {
+
+            System.out.println(
+                    "Appointment removed."
+            );
+
+        } else {
+
+            System.out.println(
+                    "Appointment not found."
+            );
+        }
+    }
+
+
+    public void listAppointmentsByStatusHandler() {
+
+        String status =
+                input.readText(
+                        "Status"
+                );
+
+        ArrayList results =
+                appointmentService
+                        .listByStatus(status);
+
+        if (results.isEmpty()) {
+
+            System.out.println(
+                    "No appointments found."
+            );
+
+            return;
+        }
+
+        for (int i = 0;
+             i < results.size();
+             i++) {
+
+            Appointment appointment =
+                    (Appointment) results.get(i);
+
+            appointment.displayInfo();
+        }
+    }
+
+
+    public void listAppointmentsByPatientHandler() {
+
+        String patientId =
+                input.readText(
+                        "Patient ID"
+                );
+
+        ArrayList results =
+                appointmentService
+                        .listByPatient(patientId);
+
+        if (results.isEmpty()) {
+
+            System.out.println(
+                    "No appointments found."
+            );
+
+            return;
+        }
+
+        for (int i = 0;
+             i < results.size();
+             i++) {
+
+            Appointment appointment =
+                    (Appointment) results.get(i);
+
+            appointment.displayInfo();
+        }
     }
 
 
     public void recordMenu() {
 
+        boolean back = false;
 
-        System.out.println("Medical Record menu.");
+        while (!back) {
+
+            System.out.println();
+            System.out.println(
+                    "===== Medical Record Menu ====="
+            );
+
+            System.out.println("1. Add Record");
+            System.out.println("2. View All");
+            System.out.println("3. Search");
+            System.out.println("4. Update Notes");
+            System.out.println("5. Remove");
+            System.out.println("6. List By Patient");
+            System.out.println("7. Count Confidential");
+            System.out.println("8. Back");
+
+            int choice =
+                    input.readInt(
+                            "Choose an option",
+                            1,
+                            8
+                    );
+
+            if (choice == 1) {
+
+                addRecordHandler();
+
+            } else if (choice == 2) {
+
+                viewRecordsHandler();
+
+            } else if (choice == 3) {
+
+                searchRecordHandler();
+
+            } else if (choice == 4) {
+
+                updateRecordHandler();
+
+            } else if (choice == 5) {
+
+                removeRecordHandler();
+
+            } else if (choice == 6) {
+
+                listRecordsByPatientHandler();
+
+            } else if (choice == 7) {
+
+                countConfidentialHandler();
+
+            } else if (choice == 8) {
+
+                back = true;
+            }
+        }
+    }
+
+
+    public void addRecordHandler() {
+
+        String recordId =
+                input.readText(
+                        "Record ID"
+                );
+
+        String patientId =
+                input.readText(
+                        "Patient ID"
+                );
+
+        String doctorId =
+                input.readText(
+                        "Doctor ID"
+                );
+
+        String visitDate =
+                input.readText(
+                        "Visit Date"
+                );
+
+        String diagnosis =
+                input.readText(
+                        "Diagnosis"
+                );
+
+        String prescription =
+                input.readText(
+                        "Prescription"
+                );
+
+        String notes =
+                input.readText(
+                        "Notes"
+                );
+
+        boolean confidential =
+                input.readYesNo(
+                        "Confidential"
+                );
+
+        MedicalRecord record =
+                new MedicalRecord(
+                        recordId,
+                        patientId,
+                        doctorId,
+                        visitDate,
+                        diagnosis,
+                        prescription,
+                        notes,
+                        confidential
+                );
+
+        recordService.add(record);
+
+        System.out.println(
+                "Medical record added."
+        );
+    }
+
+
+    public void viewRecordsHandler() {
+
+        Object[] records =
+                recordService.getAll();
+
+        if (records.length == 0) {
+
+            System.out.println(
+                    "No medical records found."
+            );
+
+            return;
+        }
+
+        for (int i = 0;
+             i < records.length;
+             i++) {
+
+            MedicalRecord record =
+                    (MedicalRecord) records[i];
+
+            record.displayInfo();
+        }
+    }
+
+
+    public void searchRecordHandler() {
+
+        String keyword =
+                input.readText(
+                        "Search keyword"
+                );
+
+        Object[] results =
+                recordService.search(
+                        keyword
+                );
+
+        if (results.length == 0) {
+
+            System.out.println(
+                    "No medical records found."
+            );
+
+            return;
+        }
+
+        for (int i = 0;
+             i < results.length;
+             i++) {
+
+            MedicalRecord record =
+                    (MedicalRecord) results[i];
+
+            record.displayInfo();
+        }
+    }
+
+
+    public void updateRecordHandler() {
+
+        String id =
+                input.readText(
+                        "Record ID"
+                );
+
+        MedicalRecord record =
+                (MedicalRecord)
+                        recordService.searchById(id);
+
+        if (record == null) {
+
+            System.out.println(
+                    "Record not found."
+            );
+
+            return;
+        }
+
+        String notes =
+                input.readText(
+                        "New Notes"
+                );
+
+        record.setNotes(notes);
+
+        System.out.println(
+                "Record updated."
+        );
+    }
+
+
+    public void removeRecordHandler() {
+
+        String id =
+                input.readText(
+                        "Record ID"
+                );
+
+        boolean removed =
+                recordService.removeById(id);
+
+        if (removed) {
+
+            System.out.println(
+                    "Record removed."
+            );
+
+        } else {
+
+            System.out.println(
+                    "Record not found."
+            );
+        }
+    }
+
+
+    public void listRecordsByPatientHandler() {
+
+        String patientId =
+                input.readText(
+                        "Patient ID"
+                );
+
+        ArrayList results =
+                recordService
+                        .listByPatient(patientId);
+
+        if (results.isEmpty()) {
+
+            System.out.println(
+                    "No medical records found."
+            );
+
+            return;
+        }
+
+        for (int i = 0;
+             i < results.size();
+             i++) {
+
+            MedicalRecord record =
+                    (MedicalRecord) results.get(i);
+
+            record.displayInfo();
+        }
+    }
+
+
+    public void countConfidentialHandler() {
+
+        System.out.println(
+                "Confidential Records: "
+                        + recordService
+                        .countConfidential()
+        );
     }
 
 
     public void reportsMenu() {
 
-
-        System.out.println("Reports menu.");
+        System.out.println(
+                "Reports will be added in the next commit."
+        );
     }
 }
