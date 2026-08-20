@@ -85,9 +85,9 @@ public class Surgeon extends Doctor {
 
         super.displayInfo();
 
-        System.out.println("Surgeries Performed: " + surgeriesPerformed);
-        System.out.println("Operation Theatre Access: " + operationTheatreAccess);
-        System.out.println("Upcoming Surgery Dates: " + upcomingSurgeryDates);
+        System.out.println("Surgeries Performed " + surgeriesPerformed);
+        System.out.println("Operation Theatre Access " + operationTheatreAccess);
+        System.out.println("Upcoming Surgery Dates " + upcomingSurgeryDates);
     }
 
 
