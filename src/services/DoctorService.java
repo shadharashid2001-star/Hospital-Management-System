@@ -4,6 +4,7 @@ import entities.Doctor;
 import entities.Surgeon;
 import interfaces.Manageable;
 import interfaces.Searchable;
+
 import java.util.ArrayList;
 
 public class DoctorService implements Manageable, Searchable {
@@ -109,6 +110,9 @@ public class DoctorService implements Manageable, Searchable {
                 (Doctor) searchById(doctorId);
 
         if (doctor == null) {
+
+            System.out.println("Doctor not found.");
+
             return false;
         }
 
@@ -143,6 +147,7 @@ public class DoctorService implements Manageable, Searchable {
         for (Doctor doctor : doctors) {
 
             if (doctor.isOnCall()) {
+
                 results.add(doctor);
             }
         }

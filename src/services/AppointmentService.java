@@ -88,4 +88,19 @@ public class AppointmentService implements Manageable, Searchable {
     public ArrayList<Appointment> getAppointments() {
         return appointments;
     }
+
+    @Override
+    public boolean removeById(String id) {
+        return false;
+    }
+
+    @Override
+    public Object[] search(String keyword) {
+        return new Object[0];
+    }
+
+    @Override
+    public Object searchById(String id) {
+        return null;
+    }
 }

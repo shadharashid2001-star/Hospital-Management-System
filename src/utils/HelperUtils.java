@@ -2,25 +2,51 @@ package utils;
 
 public class HelperUtils {
 
-    private static Integer idCounter = 1;
+    public static boolean isEmpty(String text) {
 
-
-    public static String generateId() {
-
-        String id = String.valueOf(idCounter);
-
-        idCounter++;
-
-        return id;
+        return text == null || text.trim().isEmpty();
     }
 
 
-    public static String generateId(String prefix) {
+    public static boolean isEmpty(Object[] collection) {
 
-        String id = prefix + idCounter;
+        if (collection == null || collection.length == 0) {
+            return true;
+        }
 
-        idCounter++;
+        for (Object item : collection) {
 
-        return id;
+            if (item != null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public static boolean isValidText(String text) {
+
+        return !isEmpty(text);
+    }
+
+
+    public static boolean isValidText(
+            String text,
+            Integer minLength) {
+
+        return !isEmpty(text)
+                && text.length() >= minLength;
+    }
+
+
+    public static boolean isValidText(
+            String text,
+            Integer minLength,
+            Integer maxLength) {
+
+        return !isEmpty(text)
+                && text.length() >= minLength
+                && text.length() <= maxLength;
     }
 }

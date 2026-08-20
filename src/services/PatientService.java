@@ -83,4 +83,19 @@ public class PatientService implements Manageable, Searchable {
     public ArrayList<Patient> getPatients() {
         return patients;
     }
+
+    @Override
+    public boolean removeById(String id) {
+        return false;
+    }
+
+    @Override
+    public Object[] search(String keyword) {
+        return new Object[0];
+    }
+
+    @Override
+    public Object searchById(String id) {
+        return null;
+    }
 }
