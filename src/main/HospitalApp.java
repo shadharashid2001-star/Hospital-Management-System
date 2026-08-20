@@ -1,92 +1,124 @@
-import entities.Person;
-import entities.Patient;
-import entities.Doctor;
-import entities.Nurse;
-import entities.InPatient;
-import entities.Surgeon;
+package main;
 
-import java.util.ArrayList;
+import utils.InputHandler;
 
 public class HospitalApp {
 
-    public void countByType(ArrayList<Person> people) {
-
-        Integer patientCount = 0;
-        Integer doctorCount = 0;
-        Integer nurseCount = 0;
-        Integer inPatientCount = 0;
-        Integer surgeonCount = 0;
-
-        for (Person person : people) {
-
-            if (person instanceof InPatient) {
-
-                inPatientCount++;
-                patientCount++;
-
-            } else if (person instanceof Surgeon) {
-
-                surgeonCount++;
-                doctorCount++;
-
-            } else if (person instanceof Patient) {
-
-                patientCount++;
-
-            } else if (person instanceof Doctor) {
-
-                doctorCount++;
-
-            } else if (person instanceof Nurse) {
-
-                nurseCount++;
-            }
-        }
-
-        System.out.println("Patients: " + patientCount);
-        System.out.println("InPatients: " + inPatientCount);
-        System.out.println("Doctors: " + doctorCount);
-        System.out.println("Surgeons: " + surgeonCount);
-        System.out.println("Nurses: " + nurseCount);
-    }
-
-
-    public Person findOldest(ArrayList<Person> people) {
-
-        Person oldest = null;
-
-        for (Person person : people) {
-
-            if (oldest == null
-                    || person.getAge() > oldest.getAge()) {
-
-                oldest = person;
-            }
-        }
-
-        return oldest;
-    }
+    private InputHandler input = new InputHandler();
 
 
     public static void main(String[] args) {
 
         HospitalApp app = new HospitalApp();
 
-        ArrayList<Person> people = new ArrayList<>();
+        app.start();
+    }
 
 
-        app.countByType(people);
+    public void start() {
 
-        Person oldest = app.findOldest(people);
+        boolean running = true;
 
-        if (oldest != null) {
+        while (running) {
 
-            System.out.println(
-                    "Oldest Person: "
-                            + oldest.getFullName()
-                            + " - "
-                            + oldest.getAge()
+            showMainMenu();
+
+            int choice = input.readInt(
+                    "Choose an option",
+                    1,
+                    7
             );
+
+            if (choice == 1) {
+
+                patientMenu();
+
+            } else if (choice == 2) {
+
+                doctorMenu();
+
+            } else if (choice == 3) {
+
+                nurseMenu();
+
+            } else if (choice == 4) {
+
+                appointmentMenu();
+
+            } else if (choice == 5) {
+
+                recordMenu();
+
+            } else if (choice == 6) {
+
+                reportsMenu();
+
+            } else if (choice == 7) {
+
+                System.out.println(
+                        "Exiting Hospital Management System."
+                );
+
+                running = false;
+            }
         }
+    }
+
+
+    public void showMainMenu() {
+
+        System.out.println();
+        System.out.println(
+                "===== Hospital Management System ====="
+        );
+
+        System.out.println("1. Patients");
+        System.out.println("2. Doctors");
+        System.out.println("3. Nurses");
+        System.out.println("4. Appointments");
+        System.out.println("5. Medical Records");
+        System.out.println("6. Reports");
+        System.out.println("7. Exit");
+    }
+
+
+    public void patientMenu() {
+
+      
+        System.out.println("Patient menu.");
+    }
+
+
+    public void doctorMenu() {
+
+
+        System.out.println("Doctor menu.");
+    }
+
+
+    public void nurseMenu() {
+
+
+        System.out.println("Nurse menu.");
+    }
+
+
+    public void appointmentMenu() {
+
+
+        System.out.println("Appointment menu.");
+    }
+
+
+    public void recordMenu() {
+
+
+        System.out.println("Medical Record menu.");
+    }
+
+
+    public void reportsMenu() {
+
+        System.out.println("Reports menu.");
     }
 }
