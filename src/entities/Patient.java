@@ -60,6 +60,7 @@ public class Patient extends Person {
         return bloodGroup;
     }
 
+
     public void setBloodGroup(String bloodGroup) {
 
         if (!HelperUtils.isValidText(bloodGroup)) {
@@ -75,6 +76,7 @@ public class Patient extends Person {
         return emergencyContact;
     }
 
+
     public void setEmergencyContact(String emergencyContact) {
 
         if (!HelperUtils.isValidText(emergencyContact)) {
@@ -89,6 +91,7 @@ public class Patient extends Person {
     public String getRegistrationDate() {
         return registrationDate;
     }
+
 
     public void setRegistrationDate(String registrationDate) {
 
@@ -115,6 +118,7 @@ public class Patient extends Person {
         return outstandingBalance;
     }
 
+
     public void setOutstandingBalance(double outstandingBalance) {
 
         if (!HelperUtils.isPositive(outstandingBalance)) {
@@ -129,6 +133,7 @@ public class Patient extends Person {
     public boolean isInsured() {
         return insured;
     }
+
 
     public void setInsured(boolean insured) {
         this.insured = insured;
@@ -154,7 +159,8 @@ public class Patient extends Person {
 
         for (int i = 0; i < allergies.size(); i++) {
 
-            String item = (String) allergies.get(i);
+            String item =
+                    (String) allergies.get(i);
 
             if (item.equalsIgnoreCase(allergy)) {
                 return true;
@@ -168,6 +174,7 @@ public class Patient extends Person {
     public void listAllergies() {
 
         if (allergies.isEmpty()) {
+
             System.out.println("No allergies.");
             return;
         }
@@ -193,6 +200,7 @@ public class Patient extends Person {
 
 
     public Integer getRecordCount() {
+
         return recordIds.size();
     }
 
@@ -200,7 +208,11 @@ public class Patient extends Person {
     public void addToBalance(double amount) {
 
         if (!HelperUtils.isPositive(amount)) {
-            System.out.println("Amount cannot be negative.");
+
+            System.out.println(
+                    "Amount cannot be negative."
+            );
+
             return;
         }
 
@@ -209,6 +221,7 @@ public class Patient extends Person {
 
 
     public void clearBalance() {
+
         outstandingBalance = 0.0;
     }
 
@@ -233,12 +246,33 @@ public class Patient extends Person {
 
         super.displayInfo();
 
-        System.out.println("Blood Group: " + bloodGroup);
-        System.out.println("Emergency Contact: " + emergencyContact);
-        System.out.println("Registration Date: " + registrationDate);
-        System.out.println("Allergies: " + allergies);
-        System.out.println("Record Count: " + recordIds.size());
-        System.out.println("Outstanding Balance: " + outstandingBalance);
-        System.out.println("Insured: " + insured);
+        System.out.println(
+                "Blood Group: " + bloodGroup
+        );
+
+        System.out.println(
+                "Emergency Contact: " + emergencyContact
+        );
+
+        System.out.println(
+                "Registration Date: " + registrationDate
+        );
+
+        System.out.println(
+                "Allergies: " + allergies
+        );
+
+        System.out.println(
+                "Record Count: " + recordIds.size()
+        );
+
+        System.out.println(
+                "Outstanding Balance: "
+                        + outstandingBalance
+        );
+
+        System.out.println(
+                "Insured: " + insured
+        );
     }
 }
