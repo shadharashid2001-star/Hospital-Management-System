@@ -1,7 +1,7 @@
 package utils;
 
 public class HelperUtils {
-
+    private static Integer idCounter = 1;
     public static boolean isEmpty(String text) {
 
         return text == null || text.trim().isEmpty();
@@ -49,4 +49,47 @@ public class HelperUtils {
                 && text.length() >= minLength
                 && text.length() <= maxLength;
     }
+
+    public static String generateId() {
+
+        String id = String.valueOf(idCounter);
+
+        idCounter++;
+
+        return id;
+    }
+    public static String generateId(String prefix) {
+
+        String id = prefix + idCounter;
+
+        idCounter++;
+
+        return id;
+    }
+    public static boolean isPositive(Integer number) {
+
+        return number != null && number >= 0;
+    }
+    public static boolean isPositive(double number) {
+
+        return number >= 0;
+    }
+    public static boolean isInRange(
+            Integer number,
+            Integer min,
+            Integer max) {
+
+        return number != null
+                && number >= min
+                && number <= max;
+    }
+    public static boolean isInRange(
+            double number,
+            double min,
+            double max) {
+
+        return number >= min
+                && number <= max;
+    }
+
 }
