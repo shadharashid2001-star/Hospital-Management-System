@@ -27,7 +27,7 @@ public class Nurse extends Person {
                 email,
                 address,
                 nationalId,
-                age,
+                nationalId, age,
                 active);
         setDepartmentId(departmentId);
         setShift(shift);

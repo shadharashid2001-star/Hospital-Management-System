@@ -40,6 +40,7 @@ public class Doctor extends Person {
                 phoneNumber,
                 email,
                 address,
+                nationalId,
                 age,
                 active
         );
@@ -57,9 +58,7 @@ public class Doctor extends Person {
 
     public void setSpecialization(String specialization) {
 
-        if (specialization == null
-                || specialization.trim().isEmpty()) {
-
+        if (specialization == null || specialization.trim().isEmpty()) {
             System.out.println("Specialization cannot be empty.");
             return;
         }
@@ -68,13 +67,13 @@ public class Doctor extends Person {
     }
 
 
-    public int getExperienceYears() {
+    public Integer getExperienceYears() {
         return experienceYears;
     }
 
-    public void setExperienceYears(int experienceYears) {
+    public void setExperienceYears(Integer experienceYears) {
 
-        if (experienceYears < 0) {
+        if (experienceYears == null || experienceYears < 0) {
             System.out.println("Experience years cannot be negative.");
             return;
         }
@@ -152,7 +151,6 @@ public class Doctor extends Person {
             if (availableSlots.get(i).equalsIgnoreCase(slot)) {
 
                 availableSlots.remove(i);
-
                 return;
             }
         }
@@ -172,8 +170,7 @@ public class Doctor extends Person {
     }
 
 
-    public int getPatientLoad() {
-
+    public Integer getPatientLoad() {
         return assignedPatientIds.size();
     }
 
@@ -186,5 +183,20 @@ public class Doctor extends Person {
         }
 
         consultationFee += amount;
+    }
+
+
+
+    public void updateFee(double fee) {
+        setConsultationFee(fee);
+    }
+
+
+
+    public void updateFee(double fee, String reason) {
+
+        setConsultationFee(fee);
+
+        System.out.println("Fee updated. Reason: " + reason);
     }
 }
