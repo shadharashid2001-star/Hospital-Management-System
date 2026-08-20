@@ -1,95 +1,38 @@
 package utils;
 
+import java.util.Scanner;
+
 public class HelperUtils {
-    private static Integer idCounter = 1;
-    public static boolean isEmpty(String text) {
+  private static Integer idCounter = 1000;
+  //checks empty
 
-        return text == null || text.trim().isEmpty();
+    public static boolean isEmpty(String text){
+        return  text == null || text.trim().length()  == 0;
     }
 
-
-    public static boolean isEmpty(Object[] collection) {
-
-        if (collection == null || collection.length == 0) {
-            return true;
-        }
-
-        for (Object item : collection) {
-
-            if (item != null) {
-                return false;
-            }
-        }
-
-        return true;
+    public static boolean isEmptyCollection(object[] items,int count){
+        return  items == null || count == 0;
     }
 
-
+    // text alone: just must not be empty
     public static boolean isValidText(String text) {
-
         return !isEmpty(text);
     }
 
-
-    public static boolean isValidText(
-            String text,
-            Integer minLength) {
-
-        return !isEmpty(text)
-                && text.length() >= minLength;
+    // text with a minimum length
+    public static boolean isValidText(String text, int minLength) {
+        return !isEmpty(text) && text.trim().length() >= minLength;
     }
 
-
-    public static boolean isValidText(
-            String text,
-            Integer minLength,
-            Integer maxLength) {
-
-        return !isEmpty(text)
-                && text.length() >= minLength
-                && text.length() <= maxLength;
+    // text with a minimum and maximum length
+    public static boolean isValidText(String text, int minLength, int maxLength) {
+        if (isEmpty(text)) {
+            return false;
+        }
+        int length = text.trim().length();
+        return length >= minLength && length <= maxLength;
     }
+    
 
-    public static String generateId() {
-
-        String id = String.valueOf(idCounter);
-
-        idCounter++;
-
-        return id;
-    }
-    public static String generateId(String prefix) {
-
-        String id = prefix + idCounter;
-
-        idCounter++;
-
-        return id;
-    }
-    public static boolean isPositive(Integer number) {
-
-        return number != null && number >= 0;
-    }
-    public static boolean isPositive(double number) {
-
-        return number >= 0;
-    }
-    public static boolean isInRange(
-            Integer number,
-            Integer min,
-            Integer max) {
-
-        return number != null
-                && number >= min
-                && number <= max;
-    }
-    public static boolean isInRange(
-            double number,
-            double min,
-            double max) {
-
-        return number >= min
-                && number <= max;
-    }
 
 }
