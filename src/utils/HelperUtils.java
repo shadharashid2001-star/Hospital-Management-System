@@ -32,7 +32,32 @@ public class HelperUtils {
         int length = text.trim().length();
         return length >= minLength && length <= maxLength;
     }
-    
+    // no prefix..
+    public static String generateId() {
+        idCounter = idCounter + 1;
+        return "ID" + idCounter;
+    }
+
+    // with a prefix: gives ids like "STU1003", "TEA1004" ...
+    public static String generateId(String prefix) {
+        idCounter = idCounter + 1;
+        return prefix + idCounter;
+    }
+    // range checks
+
+    public static boolean inRange(int value, int min, int max) {
+        return value >= min && value <= max;
+    }
+
+    public static boolean inRange(double value, double min, double max) {
+        return value >= min && value <= max;
+    }
+    // age must be between 0 and 120
+    public static boolean isValidAge(int age) {
+        return inRange(age, 0, 120);
+    }
+
+
 
 
 }
