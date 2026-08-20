@@ -1,0 +1,170 @@
+# Hospital Management System - Testing Notes
+
+## Task 2.9 Testing
+
+### Sample Data
+The system was seeded with:
+
+- 6 Patients
+- 2 InPatients
+- 4 Doctors
+- 1 Surgeon
+- 3 Nurses
+- 6 Appointments
+- 5 Medical Records
+
+
+## Patient Service Testing
+
+Tested operations:
+
+- Add patient
+- View all patients
+- Search patient
+- Remove patient
+- Update contact
+- List InPatients
+- Calculate total outstanding balance
+
+Overloaded methods tested:
+
+- addPatient(id, firstName, lastName)
+- addPatient(id, firstName, lastName, bloodGroup)
+- addPatient(Patient object)
+
+- updateContact(phone)
+- updateContact(phone, email)
+
+
+## Doctor Service Testing
+
+Tested operations:
+
+- Add doctor
+- Add surgeon
+- View all doctors
+- Search doctor
+- Remove doctor
+- Assign patient
+- List doctors by specialization
+- View available doctors
+
+Overloaded methods tested:
+
+- updateFee(fee)
+- updateFee(fee, reason)
+
+
+## Nurse Service Testing
+
+Tested operations:
+
+- Add nurse
+- View all nurses
+- Search nurse
+- Remove nurse
+- List nurses by shift
+- Reassign patient
+
+
+## Appointment Service Testing
+
+Tested operations:
+
+- Schedule appointment
+- View appointments
+- Search appointment
+- Cancel appointment
+- Complete appointment
+- Reschedule appointment
+- List by status
+- List by patient
+
+Overloaded methods tested:
+
+- schedule(ids + date)
+- schedule(ids + date + time)
+- schedule(full objects + reason)
+
+
+## Medical Record Service Testing
+
+Tested operations:
+
+- Add record
+- View records
+- Search record
+- Remove record
+- List records by patient
+- Count confidential records
+
+
+## Interface Testing
+
+Verified:
+
+- Displayable implemented by all entities
+- Manageable implemented by services
+- Searchable implemented by services
+
+Tested:
+
+- add()
+- removeById()
+- getAll()
+- search()
+- searchById()
+
+
+## Polymorphism Testing
+
+A single Person collection was created containing:
+
+- Patient
+- InPatient
+- Doctor
+- Surgeon
+- Nurse
+
+displayInfo() was called through the parent type.
+
+Tested:
+
+- printAll()
+- countByType()
+- findOldest()
+
+
+## Validation Testing
+
+Verified setters reject:
+
+- Empty IDs
+- Empty names
+- Empty dates
+- Negative balances
+- Negative fees
+- Invalid age below 0
+- Invalid age above 120
+- Invalid nurse shift
+- Invalid appointment status
+
+
+## Console Screenshots
+
+Screenshots included:
+
+1. Main menu
+2. Patient operations
+3. Doctor operations
+4. Nurse operations
+5. Appointment operations
+6. Medical record operations
+7. Reports output
+8. Validation rejection messages
+9. Polymorphism output
+
+
+## Result
+
+All required Task 2.9 operations were tested successfully.
